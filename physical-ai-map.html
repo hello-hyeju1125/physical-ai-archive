@@ -1,0 +1,535 @@
+<meta charset="utf-8" />
+<title>Physical AI Archive — 지식 그래프</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0a0c10;
+    --bg2:#0e1117;
+    --panel:#141822;
+    --panel-border:#242938;
+    --text:#e8eaf0;
+    --text-dim:#8992a6;
+    --text-faint:#4b5163;
+    --accent:#5b8ff0;
+    --company:#d8975a;
+    --tech:#e35d5d;
+    --industry:#5b8ff0;
+    --competitor:#e069a8;
+    --government:#e0c23e;
+    --agenda:#4caf7d;
+    --material:#8a8f98;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; width:100%; height:100%;
+    background:radial-gradient(ellipse at 50% 30%, var(--bg2) 0%, var(--bg) 70%);
+    color:var(--text);
+    font-family:-apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    overflow:hidden;
+  }
+  #app{position:fixed; inset:0;}
+
+  header{
+    position:absolute; top:0; left:0; right:0; z-index:20;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 24px; pointer-events:none;
+  }
+  header .title-block{pointer-events:none;}
+  header h1{
+    margin:0; font-size:17px; font-weight:700; letter-spacing:0.2px; color:var(--text);
+  }
+  header p{
+    margin:4px 0 0; font-size:12px; color:var(--text-dim);
+  }
+
+  #searchWrap{
+    pointer-events:auto;
+    display:flex; align-items:center; gap:8px;
+    background:rgba(20,24,34,0.85);
+    border:1px solid var(--panel-border);
+    border-radius:10px;
+    padding:9px 14px;
+    backdrop-filter: blur(10px);
+    min-width:260px;
+  }
+  #searchWrap svg{flex:none; opacity:0.55;}
+  #searchInput{
+    flex:1;
+    background:transparent; border:none; outline:none;
+    color:var(--text); font-size:14px;
+    font-family:inherit;
+  }
+  #searchInput::placeholder{color:var(--text-faint);}
+  #searchCount{font-size:11px; color:var(--text-faint); white-space:nowrap;}
+  #clearBtn{
+    display:none; cursor:pointer; border:none; background:none; color:var(--text-dim);
+    font-size:14px; padding:0 2px; line-height:1;
+  }
+  #clearBtn:hover{color:var(--text);}
+
+  #legend{
+    position:absolute; left:24px; bottom:24px; z-index:20;
+    background:rgba(20,24,34,0.85);
+    border:1px solid var(--panel-border);
+    border-radius:12px;
+    padding:14px 16px;
+    backdrop-filter: blur(10px);
+    font-size:12px;
+    max-width:200px;
+  }
+  #legend .lg-title{font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:10px;}
+  #legend .lg-row{display:flex; align-items:center; gap:8px; margin:6px 0; cursor:pointer; user-select:none; opacity:1; transition:opacity .15s;}
+  #legend .lg-row.dim{opacity:0.35;}
+  #legend .lg-dot{width:11px; height:11px; border-radius:50%; flex:none;}
+  #legend .lg-row span.lbl{color:var(--text-dim); font-size:12px;}
+  #legend .lg-sep{height:1px; background:var(--panel-border); margin:10px 0;}
+  #legend .lg-mat{width:7px; height:7px; border-radius:50%; background:var(--material); flex:none;}
+
+  #tooltip{
+    position:absolute; z-index:30; pointer-events:none;
+    background:rgba(18,21,30,0.96); border:1px solid var(--panel-border);
+    border-radius:8px; padding:8px 11px; font-size:12.5px; color:var(--text);
+    max-width:280px; line-height:1.45; display:none;
+    box-shadow:0 8px 24px rgba(0,0,0,0.45);
+  }
+  #tooltip .tt-cat{color:var(--text-dim); font-size:10.5px; margin-top:2px;}
+
+  #hint{
+    position:absolute; right:24px; bottom:24px; z-index:20;
+    font-size:11px; color:var(--text-faint);
+    background:rgba(20,24,34,0.7); border:1px solid var(--panel-border);
+    border-radius:10px; padding:10px 13px; backdrop-filter: blur(10px);
+    line-height:1.6;
+  }
+
+  #graphSvg{width:100%; height:100%; display:block; cursor:grab;}
+  #graphSvg:active{cursor:grabbing;}
+
+  .node{cursor:pointer;}
+  .node-circle{transition:opacity .25s, stroke-width .15s;}
+  .node.dim .node-circle{opacity:0.10;}
+  .node.dim .node-label{opacity:0.06;}
+  .node.highlight .node-circle{stroke:#fff; stroke-width:2.2;}
+  .node-label{
+    fill:var(--text-dim); font-size:10.5px; pointer-events:none;
+    paint-order:stroke; stroke:rgba(6,7,10,0.85); stroke-width:3px; stroke-linejoin:round;
+    transition:opacity .25s;
+  }
+  .node.entity .node-label{fill:#d8dce6; font-size:11.5px; font-weight:600;}
+  .link{stroke:#4a5468; stroke-opacity:0.35; fill:none; transition:opacity .25s, stroke .2s;}
+  .link.dim{opacity:0.04;}
+  .link.highlight{stroke:#8fb2ff; stroke-opacity:0.85;}
+</style>
+
+<div id="app">
+  <header>
+    <div class="title-block">
+      <h1>Physical AI Archive</h1>
+      <p>지식 그래프 · 6개 카테고리 엔티티 &amp; 자료 연결망</p>
+    </div>
+    <div id="searchWrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#8992a6" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#8992a6" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="searchInput" type="text" placeholder="키워드로 검색 (예: Skild, 중국, 배터리...)" autocomplete="off" />
+      <span id="searchCount"></span>
+      <button id="clearBtn" title="지우기">✕</button>
+    </div>
+  </header>
+
+  <div id="legend">
+    <div class="lg-title">카테고리</div>
+    <div class="lg-row" data-cat="company"><span class="lg-dot" style="background:var(--company)"></span><span class="lbl">우리 회사 (Company)</span></div>
+    <div class="lg-row" data-cat="tech"><span class="lg-dot" style="background:var(--tech)"></span><span class="lbl">기반 기술</span></div>
+    <div class="lg-row" data-cat="industry"><span class="lg-dot" style="background:var(--industry)"></span><span class="lbl">적용 산업</span></div>
+    <div class="lg-row" data-cat="competitor"><span class="lg-dot" style="background:var(--competitor)"></span><span class="lbl">경쟁 및 파트너</span></div>
+    <div class="lg-row" data-cat="government"><span class="lg-dot" style="background:var(--government)"></span><span class="lbl">정부/국가</span></div>
+    <div class="lg-row" data-cat="agenda"><span class="lg-dot" style="background:var(--agenda)"></span><span class="lbl">AI 전방위 통합 아젠다</span></div>
+    <div class="lg-sep"></div>
+    <div class="lg-row" data-cat="material"><span class="lg-mat"></span><span class="lbl">자료 (뉴스·아티클 등)</span></div>
+  </div>
+
+  <div id="hint">노드를 클릭하면 노션 페이지가 열립니다<br/>드래그로 이동 · 휠로 확대/축소</div>
+  <div id="tooltip"></div>
+</div>
+
+<script>
+/* ---------------- 데이터 (Physical AI Archive에서 추출) ---------------- */
+const ENTITIES = [
+  {url:"https://app.notion.com/382eef5aeac1801aa04dcbf2e1cc079a", name:"NVIDIA", cat:"competitor"},
+  {url:"https://app.notion.com/382eef5aeac1802ca211c421b7eeec09", name:"공공", cat:"industry"},
+  {url:"https://app.notion.com/382eef5aeac18034a102fdbbf7f86a86", name:"Figure AI", cat:"competitor"},
+  {url:"https://app.notion.com/382eef5aeac180378c2ad6bc6e075fdd", name:"첨단소재", cat:"tech"},
+  {url:"https://app.notion.com/382eef5aeac18068b57dd24dee7ff7e7", name:"국방", cat:"industry"},
+  {url:"https://app.notion.com/382eef5aeac180758254e3ac9b49ed22", name:"서비스·상업", cat:"industry"},
+  {url:"https://app.notion.com/382eef5aeac18087a93ec9580c2d1d9f", name:"Xiaomi", cat:"competitor"},
+  {url:"https://app.notion.com/382eef5aeac180fc9ea1e2884dcbb709", name:"화학", cat:"company"},
+  {url:"https://app.notion.com/382eef5aeac181168c73da22005bb2c9", name:"항만·선박", cat:"industry"},
+  {url:"https://app.notion.com/382eef5aeac1811d8cadf93e7652cb43", name:"헬스케어", cat:"industry"},
+  {url:"https://app.notion.com/382eef5aeac1812c91c1e289cf2eadd7", name:"자동차·모빌리티", cat:"industry"},
+  {url:"https://app.notion.com/382eef5aeac1813ba0bfdb105201238d", name:"에너지·인프라", cat:"industry"},
+  {url:"https://app.notion.com/382eef5aeac18144801af9db4fe39d8c", name:"Boston Dynamics", cat:"competitor"},
+  {url:"https://app.notion.com/382eef5aeac181539e7afda07d969f97", name:"CNS", cat:"company"},
+  {url:"https://app.notion.com/382eef5aeac18158a06ace5c93415f3d", name:"데이터센터·인프라", cat:"tech"},
+  {url:"https://app.notion.com/382eef5aeac18161a153f7dff25572c6", name:"센서·인식 모듈", cat:"tech"},
+  {url:"https://app.notion.com/382eef5aeac1816fb5aef827e87ec16d", name:"액추에이터·구동 시스템", cat:"tech"},
+  {url:"https://app.notion.com/382eef5aeac18174a6b6d365735251ee", name:"Unitree", cat:"competitor"},
+  {url:"https://app.notion.com/382eef5aeac18179911aff087de480d3", name:"🇺🇸미국", cat:"government"},
+  {url:"https://app.notion.com/382eef5aeac1817f8e98e9ce3b106701", name:"디스플레이", cat:"company"},
+  {url:"https://app.notion.com/382eef5aeac18188ae0ee010cf17b8c4", name:"🇯🇵일본", cat:"government"},
+  {url:"https://app.notion.com/382eef5aeac1818ca2d3ec2419935d7b", name:"BYD", cat:"competitor"},
+  {url:"https://app.notion.com/382eef5aeac18192839cca7e9eaf7e9b", name:"AI연구원", cat:"company"},
+  {url:"https://app.notion.com/382eef5aeac18194aa7cdb0b37e6f5d6", name:"AI 반도체·칩", cat:"tech"},
+  {url:"https://app.notion.com/382eef5aeac1819cb0dee52aacff9aa6", name:"이노텍", cat:"company"},
+  {url:"https://app.notion.com/382eef5aeac181a0a5a2eacadc3d6035", name:"Tesla", cat:"competitor"},
+  {url:"https://app.notion.com/382eef5aeac181aaa7d6fd48efe962a3", name:"통신·시스템통합(SI)", cat:"tech"},
+  {url:"https://app.notion.com/382eef5aeac181afbdcec11a3b2e41d2", name:"배터리·에너지", cat:"tech"},
+  {url:"https://app.notion.com/382eef5aeac181b5823cde6167b38c34", name:"전자", cat:"company"},
+  {url:"https://app.notion.com/382eef5aeac181c4b50bcef94f6010fc", name:"에너지솔루션", cat:"company"},
+  {url:"https://app.notion.com/382eef5aeac181c9a890d76cdcdaf8c7", name:"AGIbot", cat:"competitor"},
+  {url:"https://app.notion.com/382eef5aeac181d29de0c0f5a116ec59", name:"가전·홈", cat:"industry"},
+  {url:"https://app.notion.com/382eef5aeac181dba445e0a521861263", name:"제조", cat:"industry"},
+  {url:"https://app.notion.com/382eef5aeac181edb4c6f742a55b8a78", name:"스마트 물류 및 제조", cat:"industry"},
+  {url:"https://app.notion.com/388eef5aeac1801b8b4dc7c2541b4c25", name:"기타", cat:"agenda"},
+  {url:"https://app.notion.com/388eef5aeac18034935cef46ec7ff07e", name:"실행 역량 - 데이터 자산화", cat:"agenda"},
+  {url:"https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d", name:"외부 환경 - 생태계 및 표준 주도권", cat:"agenda"},
+  {url:"https://app.notion.com/388eef5aeac180929d49ff9cd677b583", name:"외부 환경 - 지정학 및 공급망", cat:"agenda"},
+  {url:"https://app.notion.com/388eef5aeac180c59f87f44ce02e64b6", name:"실행 역량 - 인프라 및 안보", cat:"agenda"},
+  {url:"https://app.notion.com/388eef5aeac180f092c9f4f7a615e9f2", name:"실행 역량 - 조직 구조 및 인재", cat:"agenda"},
+  {url:"https://app.notion.com/388eef5aeac180fab466c58714b723ba", name:"전략 수립 - 비즈니스 모델 전환", cat:"agenda"},
+  {url:"https://app.notion.com/390eef5aeac18009a46cecf8a83c445e", name:"Google", cat:"competitor"},
+  {url:"https://app.notion.com/390eef5aeac18025b1bbf808e6d9e09c", name:"데이터센터", cat:"industry"},
+  {url:"https://app.notion.com/390eef5aeac1806f8ea9f0b03e24a706", name:"유플러스", cat:"company"},
+  {url:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", name:"Skild AI", cat:"competitor"},
+  {url:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392", name:"AI 모델·SW·플랫폼", cat:"tech"},
+  {url:"https://app.notion.com/382eef5aeac181399d94f122cb58c134", name:"🇨🇳중국", cat:"government"},
+  {url:"https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276", name:"전략 수립 - 재무 타당성", cat:"agenda"}
+];
+
+const MATERIALS = [
+  {url:"https://app.notion.com/382eef5aeac1802c9048c4c337fce368", name:"3. 만능 몸을 가진 로봇 두뇌", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c"},
+  {url:"https://app.notion.com/382eef5aeac1809db3dfd6a45b0e9cbe", name:"2. One Model, Any Scenario", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c"},
+  {url:"https://app.notion.com/382eef5aeac180b0ae4fd8970b243ef0", name:"1. Skild AI의 모든 것", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c"},
+  {url:"https://app.notion.com/39beef5aeac181378740d749f60609d1", name:"엔비디아·허깅페이스, 휴머노이드 VLA 모델 'Isaac GR00T 1.7'을 오픈소스 LeRobot에 통합", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392"},
+  {url:"https://app.notion.com/39beef5aeac181f29966c405f7dc65ea", name:"RoboCup 2026, 인천서 사상 첫 11대11 휴머노이드 로봇 축구 경기 개최", entity:null},
+  {url:"https://app.notion.com/39beef5aeac181feba43ddf950b6b323", name:"포춘: 'Physical AI'—50조 달러 기회와 에너지·하드웨어 병목", entity:"https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"},
+  {url:"https://app.notion.com/39beef5aeac1812298e4df8bd1395a23", name:"앤트그룹 로보얀트, 인과적 비디오-액션 모델 'LingBot-VA 2.0' 공개", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392"},
+  {url:"https://app.notion.com/39beef5aeac1812caeade2a86b77ab17", name:"중국, 올해 휴머노이드 로봇 생산 10만 대 돌파 전망…AI 핵심산업 230조원", entity:"https://app.notion.com/382eef5aeac181399d94f122cb58c134"},
+  {url:"https://app.notion.com/39beef5aeac1813f9532f43073e4f55e", name:"로보얀트, 오픈소스 VLA 모델 'LingBot-VLA 2.0' 공개", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392"}
+];
+
+/* ---------------- 노드 / 엣지 구성 ---------------- */
+const catAnchorOrder = ["company","tech","industry","competitor","government","agenda"];
+const W = 1600, H = 1000, CX = W/2, CY = H/2, ANCHOR_R = 330;
+const catAnchors = {};
+catAnchorOrder.forEach((c,i)=>{
+  const a = (Math.PI*2*i/catAnchorOrder.length) - Math.PI/2;
+  catAnchors[c] = {x: CX + Math.cos(a)*ANCHOR_R, y: CY + Math.sin(a)*ANCHOR_R};
+});
+
+const nodes = [];
+const nodeById = {};
+ENTITIES.forEach(e=>{
+  const n = {id:e.url, type:"entity", name:e.name, cat:e.cat, url:e.url, degree:0};
+  nodes.push(n); nodeById[n.id]=n;
+});
+MATERIALS.forEach(m=>{
+  const n = {id:m.url, type:"material", name:m.name, url:m.url, entity:m.entity, degree:0};
+  nodes.push(n); nodeById[n.id]=n;
+});
+
+const links = [];
+MATERIALS.forEach(m=>{
+  if(m.entity && nodeById[m.entity]){
+    links.push({source:m.url, target:m.entity});
+    nodeById[m.url].degree++;
+    nodeById[m.entity].degree++;
+  }
+});
+
+// radius
+nodes.forEach(n=>{
+  if(n.type==="entity"){
+    n.r = Math.min(40, 15 + n.degree*7);
+  } else {
+    n.r = 4.5 + n.degree*0.8;
+  }
+});
+
+/* ---------------- 초기 배치 ---------------- */
+nodes.forEach(n=>{
+  let base;
+  if(n.type==="entity"){
+    base = catAnchors[n.cat];
+  } else if(n.entity && catAnchors[nodeById[n.entity].cat]){
+    base = catAnchors[nodeById[n.entity].cat];
+  } else {
+    base = {x:CX, y:CY};
+  }
+  const jitter = 90;
+  n.x = base.x + (Math.random()-0.5)*jitter*2;
+  n.y = base.y + (Math.random()-0.5)*jitter*2;
+  n.vx = 0; n.vy = 0;
+});
+
+/* ---------------- 간단한 force simulation ---------------- */
+function simulate(steps){
+  for(let s=0; s<steps; s++){
+    const alpha = Math.max(0.02, 1 - s/steps);
+    // repulsion
+    for(let i=0;i<nodes.length;i++){
+      const a = nodes[i];
+      for(let j=i+1;j<nodes.length;j++){
+        const b = nodes[j];
+        let dx = a.x-b.x, dy = a.y-b.y;
+        let dist2 = dx*dx+dy*dy;
+        if(dist2 < 1) dist2 = 1;
+        const dist = Math.sqrt(dist2);
+        const minDist = a.r+b.r+18;
+        let force = (2600 / dist2) * alpha;
+        if(dist < minDist){ force += (minDist-dist)*0.06; }
+        const fx = (dx/dist)*force, fy=(dy/dist)*force;
+        a.vx += fx; a.vy += fy;
+        b.vx -= fx; b.vy -= fy;
+      }
+    }
+    // links
+    links.forEach(l=>{
+      const a = nodeById[l.source], b = nodeById[l.target];
+      let dx=b.x-a.x, dy=b.y-a.y;
+      let dist = Math.sqrt(dx*dx+dy*dy)||1;
+      const target = a.r+b.r+50;
+      const force = (dist-target)*0.02*alpha*4;
+      const fx=(dx/dist)*force, fy=(dy/dist)*force;
+      a.vx += fx; a.vy += fy;
+      b.vx -= fx; b.vy -= fy;
+    });
+    // category anchor pull (entities only, weak)
+    nodes.forEach(n=>{
+      if(n.type==="entity"){
+        const anc = catAnchors[n.cat];
+        n.vx += (anc.x-n.x)*0.012*alpha;
+        n.vy += (anc.y-n.y)*0.012*alpha;
+      } else if(!n.entity){
+        n.vx += (CX-n.x)*0.006*alpha;
+        n.vy += (CY-n.y)*0.006*alpha;
+      }
+      // gentle global center gravity
+      n.vx += (CX-n.x)*0.0015*alpha;
+      n.vy += (CY-n.y)*0.0015*alpha;
+    });
+    // integrate
+    nodes.forEach(n=>{
+      n.vx *= 0.82; n.vy *= 0.82;
+      n.x += n.vx; n.y += n.vy;
+    });
+  }
+}
+simulate(360);
+
+/* ---------------- 렌더링 ---------------- */
+const svgNS = "http://www.w3.org/2000/svg";
+const svg = document.createElementNS(svgNS,"svg");
+svg.setAttribute("id","graphSvg");
+svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+document.getElementById("app").appendChild(svg);
+
+const zoomGroup = document.createElementNS(svgNS,"g");
+svg.appendChild(zoomGroup);
+const linkGroup = document.createElementNS(svgNS,"g");
+const nodeGroup = document.createElementNS(svgNS,"g");
+zoomGroup.appendChild(linkGroup);
+zoomGroup.appendChild(nodeGroup);
+
+const linkEls = links.map(l=>{
+  const el = document.createElementNS(svgNS,"line");
+  el.setAttribute("class","link");
+  const a = nodeById[l.source], b = nodeById[l.target];
+  el.setAttribute("x1",a.x); el.setAttribute("y1",a.y);
+  el.setAttribute("x2",b.x); el.setAttribute("y2",b.y);
+  linkGroup.appendChild(el);
+  return {el, l};
+});
+
+const catColorVar = {
+  company:"var(--company)", tech:"var(--tech)", industry:"var(--industry)",
+  competitor:"var(--competitor)", government:"var(--government)", agenda:"var(--agenda)"
+};
+
+const nodeEls = nodes.map(n=>{
+  const g = document.createElementNS(svgNS,"g");
+  g.setAttribute("class","node " + n.type);
+  g.setAttribute("transform", `translate(${n.x},${n.y})`);
+
+  const circle = document.createElementNS(svgNS,"circle");
+  circle.setAttribute("class","node-circle");
+  circle.setAttribute("r", n.r);
+  if(n.type==="entity"){
+    circle.setAttribute("fill", catColorVar[n.cat]);
+    circle.setAttribute("fill-opacity","0.88");
+    circle.setAttribute("stroke", catColorVar[n.cat]);
+    circle.setAttribute("stroke-width","1");
+  } else {
+    circle.setAttribute("fill", "var(--material)");
+    circle.setAttribute("fill-opacity","0.75");
+  }
+  g.appendChild(circle);
+
+  const label = document.createElementNS(svgNS,"text");
+  label.setAttribute("class","node-label");
+  label.setAttribute("text-anchor","middle");
+  label.setAttribute("y", -(n.r+7));
+  const shortName = n.type==="material" && n.name.length>22 ? n.name.slice(0,21)+"…" : n.name;
+  label.textContent = shortName;
+  g.appendChild(label);
+
+  const title = document.createElementNS(svgNS,"title");
+  title.textContent = n.name;
+  g.appendChild(title);
+
+  g.addEventListener("click", (ev)=>{
+    ev.stopPropagation();
+    window.open(n.url, "_blank", "noopener");
+  });
+  g.addEventListener("mouseenter", (ev)=> showTooltip(n, ev));
+  g.addEventListener("mousemove", (ev)=> moveTooltip(ev));
+  g.addEventListener("mouseleave", hideTooltip);
+
+  nodeGroup.appendChild(g);
+  return {el:g, n};
+});
+
+/* ---------------- 툴팁 ---------------- */
+const tooltip = document.getElementById("tooltip");
+const catLabelKo = {company:"우리 회사", tech:"기반 기술", industry:"적용 산업", competitor:"경쟁 및 파트너", government:"정부/국가", agenda:"AI 전방위 통합 아젠다"};
+function showTooltip(n, ev){
+  tooltip.style.display="block";
+  const catLine = n.type==="entity" ? `<div class="tt-cat">${catLabelKo[n.cat]} · 연결 ${n.degree}개</div>` : `<div class="tt-cat">자료${n.entity? " · " + (nodeById[n.entity]?nodeById[n.entity].name:"") : ""}</div>`;
+  tooltip.innerHTML = `<div>${n.name}</div>${catLine}`;
+  moveTooltip(ev);
+}
+function moveTooltip(ev){
+  tooltip.style.left = (ev.clientX+16)+"px";
+  tooltip.style.top = (ev.clientY+14)+"px";
+}
+function hideTooltip(){ tooltip.style.display="none"; }
+
+/* ---------------- 검색 / 하이라이트 ---------------- */
+const searchInput = document.getElementById("searchInput");
+const searchCount = document.getElementById("searchCount");
+const clearBtn = document.getElementById("clearBtn");
+
+function neighborsOf(id){
+  const set = new Set();
+  links.forEach(l=>{
+    if(l.source===id) set.add(l.target);
+    if(l.target===id) set.add(l.source);
+  });
+  return set;
+}
+
+function applyFilter(query){
+  const q = query.trim().toLowerCase();
+  clearBtn.style.display = q ? "block" : "none";
+  if(!q){
+    nodeEls.forEach(({el})=>{ el.classList.remove("dim","highlight"); });
+    linkEls.forEach(({el})=>{ el.classList.remove("dim","highlight"); });
+    searchCount.textContent = "";
+    return;
+  }
+  const matched = new Set();
+  nodes.forEach(n=>{ if(n.name.toLowerCase().includes(q)) matched.add(n.id); });
+
+  const active = new Set(matched);
+  matched.forEach(id=>{ neighborsOf(id).forEach(nb=>active.add(nb)); });
+
+  nodeEls.forEach(({el,n})=>{
+    if(active.has(n.id)){
+      el.classList.remove("dim");
+      el.classList.toggle("highlight", matched.has(n.id));
+    } else {
+      el.classList.add("dim");
+      el.classList.remove("highlight");
+    }
+  });
+  linkEls.forEach(({el,l})=>{
+    const on = active.has(l.source) && active.has(l.target);
+    el.classList.toggle("dim", !on);
+    el.classList.toggle("highlight", matched.has(l.source)||matched.has(l.target));
+  });
+  searchCount.textContent = matched.size ? `${matched.size}개 일치` : "일치 없음";
+}
+
+searchInput.addEventListener("input", ()=> applyFilter(searchInput.value));
+clearBtn.addEventListener("click", ()=>{ searchInput.value=""; applyFilter(""); searchInput.focus(); });
+
+/* ---------------- 범례 카테고리 클릭 필터 ---------------- */
+document.querySelectorAll("#legend .lg-row").forEach(row=>{
+  row.addEventListener("click", ()=>{
+    const cat = row.dataset.cat;
+    const isActive = row.classList.contains("active");
+    document.querySelectorAll("#legend .lg-row").forEach(r=>r.classList.remove("active","dim"));
+    if(isActive){
+      nodeEls.forEach(({el})=> el.classList.remove("dim","highlight"));
+      linkEls.forEach(({el})=> el.classList.remove("dim","highlight"));
+      return;
+    }
+    row.classList.add("active");
+    document.querySelectorAll("#legend .lg-row").forEach(r=>{ if(r!==row) r.classList.add("dim"); });
+
+    const activeIds = new Set();
+    nodes.forEach(n=>{
+      const match = cat==="material" ? n.type==="material" : (n.type==="entity" && n.cat===cat);
+      if(match) activeIds.add(n.id);
+    });
+    if(cat!=="material"){
+      links.forEach(l=>{
+        if(activeIds.has(l.source)) activeIds.add(l.target);
+        if(activeIds.has(l.target)) activeIds.add(l.source);
+      });
+    }
+    nodeEls.forEach(({el,n})=>{
+      el.classList.toggle("dim", !activeIds.has(n.id));
+      el.classList.toggle("highlight", n.type==="entity" && n.cat===cat);
+    });
+    linkEls.forEach(({el,l})=>{
+      el.classList.toggle("dim", !(activeIds.has(l.source)&&activeIds.has(l.target)));
+    });
+  });
+});
+
+/* ---------------- 팬 / 줌 ---------------- */
+let viewX=0, viewY=0, viewScale=1;
+let isPanning=false, panStart={x:0,y:0}, viewStart={x:0,y:0};
+
+function updateTransform(){
+  zoomGroup.setAttribute("transform", `translate(${viewX},${viewY}) scale(${viewScale})`);
+}
+
+svg.addEventListener("mousedown",(e)=>{
+  isPanning = true;
+  panStart = {x:e.clientX, y:e.clientY};
+  viewStart = {x:viewX, y:viewY};
+});
+window.addEventListener("mousemove",(e)=>{
+  if(!isPanning) return;
+  viewX = viewStart.x + (e.clientX-panStart.x);
+  viewY = viewStart.y + (e.clientY-panStart.y);
+  updateTransform();
+});
+window.addEventListener("mouseup", ()=> isPanning=false);
+
+svg.addEventListener("wheel",(e)=>{
+  e.preventDefault();
+  const rect = svg.getBoundingClientRect();
+  const mx = e.clientX-rect.left, my = e.clientY-rect.top;
+  const prevScale = viewScale;
+  const delta = -e.deltaY*0.0016;
+  viewScale = Math.min(4, Math.max(0.35, viewScale*(1+delta)));
+  // zoom toward cursor
+  viewX = mx - (mx-viewX)*(viewScale/prevScale);
+  viewY = my - (my-viewY)*(viewScale/prevScale);
+  updateTransform();
+},{passive:false});
+
+// initial fit: center graph, slight zoom-out since viewBox already covers full canvas
+updateTransform();
+</script>
