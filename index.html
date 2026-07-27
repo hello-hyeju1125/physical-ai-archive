@@ -140,7 +140,34 @@
   .hero p.lede{
     font-size:17px; color:var(--text-dim); max-width:640px; margin-bottom:38px;
   }
-  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
+  .cta{
+    display:flex; flex-direction:column; justify-content:center;
+    min-width:172px; min-height:68px;
+    border-radius:14px; padding:13px 26px;
+    transition:transform .16s, box-shadow .16s, filter .16s;
+  }
+  .cta:hover{transform:translateY(-3px); filter:brightness(1.05);}
+  .cta-title{font-size:16.5px; font-weight:800; letter-spacing:-0.2px;}
+  .cta-sub{font-size:11.5px; font-weight:600; opacity:0.82; margin-top:3px;}
+  .cta-violet{
+    background:linear-gradient(135deg, #5332C9 0%, #7A5AF0 100%);
+    color:#FFFFFF;
+    box-shadow:0 8px 22px rgba(83,50,201,0.35);
+  }
+  .cta-violet:hover{box-shadow:0 12px 28px rgba(83,50,201,0.45);}
+  .cta-gold{
+    background:linear-gradient(135deg, #D4AF37 0%, #E9CC63 100%);
+    color:#33280A;
+    box-shadow:0 8px 22px rgba(212,175,55,0.4);
+  }
+  .cta-gold:hover{box-shadow:0 12px 28px rgba(212,175,55,0.5);}
+  .cta-red{
+    background:linear-gradient(135deg, #F25050 0%, #D63B3B 100%);
+    color:#FFFFFF;
+    box-shadow:0 8px 22px rgba(255,85,85,0.35);
+  }
+  .cta-red:hover{box-shadow:0 12px 28px rgba(255,85,85,0.45);}
   .btn{
     display:inline-flex; align-items:center; gap:8px;
     font-size:14px; font-weight:600;
@@ -528,8 +555,18 @@
       통찰을 전략으로 바꾸는 시간 — 필요한 모든 것이 여기 있습니다.
     </p>
     <div class="hero-ctas">
-      <a class="btn primary" href="#schedule">일정 보기</a>
-      <a class="btn" href="#graph">지식 그래프 탐색하기</a>
+      <a class="cta cta-violet" href="#schedule">
+        <span class="cta-title">안내</span>
+        <span class="cta-sub">일정 및 장소</span>
+      </a>
+      <a class="cta cta-gold" href="#casebook">
+        <span class="cta-title">케이스북</span>
+        <span class="cta-sub">필독 자료집</span>
+      </a>
+      <a class="cta cta-red" href="#graph">
+        <span class="cta-title">지식그래프</span>
+        <span class="cta-sub">인터랙티브 맵</span>
+      </a>
     </div>
   </div>
 </header>
