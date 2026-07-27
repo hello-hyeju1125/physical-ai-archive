@@ -196,9 +196,30 @@
   #map{background:
     radial-gradient(46% 40% at 92% 8%, rgba(232,107,168,0.09) 0%, transparent 60%),
     linear-gradient(180deg, #FFFDFD 0%, #FAF2F6 100%);}
-  #graph{background:
-    radial-gradient(48% 42% at 6% 6%, rgba(122,90,240,0.09) 0%, transparent 60%),
-    linear-gradient(180deg, #FCFBFF 0%, #F4F0FC 100%);}
+  #graph{
+    position:relative;
+    background:
+      radial-gradient(42% 50% at 88% 10%, rgba(255,85,85,0.20) 0%, transparent 65%),
+      radial-gradient(40% 46% at 6% 90%, rgba(212,175,55,0.18) 0%, transparent 65%),
+      linear-gradient(155deg, #241457 0%, #35208F 55%, #2A1863 100%);
+  }
+  #graph::after{
+    content:""; position:absolute; inset:0;
+    background-image:var(--noise);
+    opacity:0.4; mix-blend-mode:soft-light;
+    pointer-events:none;
+  }
+  #graph .container{position:relative; z-index:1;}
+  #graph .sec-label{color:#C3B2FF;}
+  #graph .sec-title{color:#FFFFFF;}
+  #graph .sec-desc{color:rgba(255,255,255,0.78);}
+  #graph .gcount{color:rgba(255,255,255,0.72);}
+  #graph .glegend{color:rgba(255,255,255,0.85);}
+  #graph .gsearchbar input{border-color:rgba(255,255,255,0.3);}
+  #graph .graph-shell{
+    border-color:rgba(255,255,255,0.18);
+    box-shadow:0 10px 30px rgba(10,5,30,0.4), 0 30px 70px rgba(10,5,30,0.35);
+  }
   #news{background:
     radial-gradient(46% 40% at 90% 4%, rgba(255,85,85,0.08) 0%, transparent 60%),
     linear-gradient(180deg, #FFFDFC 0%, #FCF3F0 100%);}
@@ -814,7 +835,7 @@
     <p class="sec-desc">
       Physical AI 아카이브의 엔티티와 자료가 연결된 살아있는 지도입니다.
       연결이 많은 노드일수록 크게 표시됩니다.
-      <strong style="color:var(--text)">노드를 클릭하면 오른쪽 패널에 정보가, 더블클릭하면 노션 페이지가 열립니다.</strong>
+      <strong style="color:#FFFFFF">노드를 클릭하면 오른쪽 패널에 정보가, 더블클릭하면 노션 페이지가 열립니다.</strong>
     </p>
 
     <div class="gsearchbar">
