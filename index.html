@@ -7,26 +7,28 @@
 <meta name="description" content="Physical AI Hackathon · LG인화원 MBA 과정 · 2026년 8월 18–20일" />
 <style>
   :root{
-    --bg:#0D0A16;
-    --bg2:#131022;
-    --panel:#161226;
-    --panel2:#1C1730;
-    --panel-border:#2B2444;
-    --text:#FFFFFF;
-    --text-dim:#A79FC2;
-    --text-faint:#6E6690;
+    --bg:#FFFFFF;
+    --bg2:#F7F5FC;
+    --panel:#FFFFFF;
+    --panel2:#F3F0FA;
+    --panel-border:#E5E0F0;
+    --text:#1A1530;
+    --text-dim:#5C5478;
+    --text-faint:#9A93B5;
     --violet:#5332C9;
-    --accent:#8968FF;
-    --accent-soft:rgba(83,50,201,0.20);
+    --accent:#5332C9;
+    --accent-soft:rgba(83,50,201,0.09);
     --red:#FF5555;
+    --red-text:#D63B3B;
     --gold:#D4AF37;
+    --gold-text:#96751A;
     --company:#D4AF37;
     --tech:#FF5555;
-    --industry:#8968FF;
+    --industry:#7A5AF0;
     --competitor:#E86BA8;
     --government:#F08C4A;
     --agenda:#B4A3F5;
-    --material:#8A8298;
+    --material:#A29BB8;
     --radius:14px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -44,7 +46,7 @@
   /* ---------- Nav ---------- */
   nav{
     position:sticky; top:0; z-index:100;
-    background:rgba(10,12,16,0.82);
+    background:rgba(255,255,255,0.86);
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--panel-border);
   }
@@ -63,9 +65,9 @@
     position:relative;
     padding:110px 0 90px;
     background:
-      radial-gradient(ellipse 900px 480px at 68% 8%, rgba(83,50,201,0.28) 0%, transparent 60%),
-      radial-gradient(ellipse 700px 420px at 22% 90%, rgba(255,85,85,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 500px 300px at 90% 80%, rgba(212,175,55,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 900px 480px at 68% 8%, rgba(83,50,201,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 700px 420px at 22% 90%, rgba(255,85,85,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 500px 300px at 90% 80%, rgba(212,175,55,0.08) 0%, transparent 60%),
       var(--bg);
     border-bottom:1px solid var(--panel-border);
     overflow:hidden;
@@ -75,7 +77,7 @@
     font-size:12.5px; font-weight:600; letter-spacing:0.6px;
     color:var(--accent);
     background:var(--accent-soft);
-    border:1px solid rgba(137,104,255,0.4);
+    border:1px solid rgba(83,50,201,0.28);
     border-radius:999px;
     padding:7px 16px;
     margin-bottom:26px;
@@ -88,7 +90,7 @@
     margin-bottom:22px;
   }
   .hero h1 .accent{
-    background:linear-gradient(100deg, var(--accent) 0%, #B18CFF 45%, var(--red) 105%);
+    background:linear-gradient(100deg, var(--violet) 0%, #8F5CE8 45%, var(--red) 105%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
   .hero p.lede{
@@ -149,8 +151,8 @@
   /* ---------- Schedule ---------- */
   .sched-note{
     display:inline-flex; align-items:center; gap:8px;
-    margin-top:18px; font-size:13px; color:#E0C25E;
-    background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.28);
+    margin-top:18px; font-size:13px; color:var(--gold-text);
+    background:rgba(212,175,55,0.12); border:1px solid rgba(212,175,55,0.4);
     border-radius:8px; padding:8px 14px;
   }
   .sched-grid{
@@ -164,7 +166,7 @@
   .day-head{
     padding:20px 22px 16px;
     border-bottom:1px solid var(--panel-border);
-    background:linear-gradient(180deg, rgba(83,50,201,0.14), transparent);
+    background:linear-gradient(180deg, rgba(83,50,201,0.07), transparent);
   }
   .day-head .d-num{font-size:11.5px; font-weight:700; letter-spacing:1.6px; color:var(--accent); text-transform:uppercase;}
   .day-head .d-date{font-size:19px; font-weight:800; margin-top:2px;}
@@ -187,13 +189,13 @@
     font-size:10.5px; font-weight:700; letter-spacing:0.7px; text-transform:uppercase;
     border-radius:5px; padding:2px 8px;
   }
-  .tag-session{background:rgba(137,104,255,0.16); color:#A78BFF;}
-  .tag-team{background:rgba(180,163,245,0.14); color:#C9BCF8;}
-  .tag-competition{background:rgba(232,107,168,0.16); color:#F393C1;}
-  .tag-mentoring{background:rgba(240,140,74,0.15); color:#F5A76F;}
-  .tag-pitch{background:rgba(255,85,85,0.16); color:#FF8585;}
-  .tag-ceremony{background:rgba(212,175,55,0.16); color:#E0C25E;}
-  .tag-break{background:rgba(138,130,152,0.14); color:#ABA3B8;}
+  .tag-session{background:rgba(83,50,201,0.10); color:#5332C9;}
+  .tag-team{background:rgba(122,90,240,0.12); color:#6A4FD8;}
+  .tag-competition{background:rgba(232,107,168,0.15); color:#C2437F;}
+  .tag-mentoring{background:rgba(240,140,74,0.16); color:#C05F1D;}
+  .tag-pitch{background:rgba(255,85,85,0.13); color:#D63B3B;}
+  .tag-ceremony{background:rgba(212,175,55,0.2); color:#96751A;}
+  .tag-break{background:rgba(120,113,140,0.12); color:#6E6788;}
   .slot .s-chevron{color:var(--text-faint); font-size:12px; padding-top:3px;}
 
   /* ---------- Venue ---------- */
@@ -216,7 +218,7 @@
   /* ---------- Casebook ---------- */
   .casebook-card{
     margin-top:42px;
-    background:linear-gradient(120deg, rgba(83,50,201,0.16), rgba(212,175,55,0.06) 70%), var(--panel);
+    background:linear-gradient(120deg, rgba(83,50,201,0.07), rgba(212,175,55,0.07) 70%), var(--panel);
     border:1px solid var(--panel-border); border-radius:var(--radius);
     padding:44px; display:grid; grid-template-columns:auto 1fr auto; gap:36px; align-items:center;
   }
@@ -234,8 +236,8 @@
   .cb-soon{
     display:inline-flex; align-items:center; gap:8px;
     font-size:13px; font-weight:700;
-    color:#E0C25E;
-    border:1.5px dashed rgba(212,175,55,0.4); border-radius:10px;
+    color:var(--gold-text);
+    border:1.5px dashed rgba(150,117,26,0.45); border-radius:10px;
     padding:13px 22px; white-space:nowrap;
   }
 
@@ -265,11 +267,11 @@
   .m-item .mi-title{font-size:13.5px; font-weight:700;}
   .m-item .mi-title em{font-style:normal; color:var(--text-dim); font-weight:600;}
   .m-item .mi-sub{font-size:12.5px; color:var(--text-dim); margin-top:3px;}
-  .col-lg .map-col-head .m-kicker{color:var(--company);}
+  .col-lg .map-col-head .m-kicker{color:var(--gold-text);}
   .col-lg .m-item{border-left:3px solid var(--company);}
   .col-ind .map-col-head .m-kicker{color:var(--industry);}
   .col-ind .m-item{border-left:3px solid var(--industry);}
-  .col-glo .map-col-head .m-kicker{color:var(--red);}
+  .col-glo .map-col-head .m-kicker{color:var(--red-text);}
   .col-glo .m-item{border-left:3px solid var(--red);}
   .col-glo .m-item.gov{border-left-color:var(--gold);}
 
@@ -277,7 +279,7 @@
   #graphPanel{
     position:relative; margin-top:42px;
     height:clamp(560px, 76vh, 740px);
-    background:radial-gradient(ellipse at 50% 30%, var(--bg2) 0%, var(--bg) 75%);
+    background:radial-gradient(ellipse at 50% 30%, #F1EDFA 0%, #FBFAFE 75%);
     border:1px solid var(--panel-border); border-radius:var(--radius);
     overflow:hidden;
   }
@@ -286,11 +288,12 @@
   #gSearchWrap{
     position:absolute; top:16px; right:16px; z-index:20;
     display:flex; align-items:center; gap:8px;
-    background:rgba(23,18,40,0.88);
+    background:rgba(255,255,255,0.9);
     border:1px solid var(--panel-border);
     border-radius:10px;
     padding:9px 14px;
     backdrop-filter:blur(10px);
+    box-shadow:0 2px 10px rgba(26,21,48,0.06);
     width:min(320px, calc(100% - 32px));
   }
   #gSearchWrap .icon{flex:none; width:15px; height:15px; opacity:0.55;}
@@ -308,11 +311,12 @@
   #gClearBtn:hover{color:var(--text);}
   #gLegend{
     position:absolute; left:16px; bottom:16px; z-index:20;
-    background:rgba(23,18,40,0.88);
+    background:rgba(255,255,255,0.9);
     border:1px solid var(--panel-border);
     border-radius:12px;
     padding:13px 15px;
     backdrop-filter:blur(10px);
+    box-shadow:0 2px 10px rgba(26,21,48,0.06);
     font-size:12px;
     max-width:220px;
   }
@@ -326,33 +330,33 @@
   #gHint{
     position:absolute; right:16px; bottom:16px; z-index:20;
     font-size:11px; color:var(--text-faint);
-    background:rgba(23,18,40,0.75); border:1px solid var(--panel-border);
+    background:rgba(255,255,255,0.8); border:1px solid var(--panel-border);
     border-radius:10px; padding:9px 13px; backdrop-filter:blur(10px);
     line-height:1.55; text-align:right;
   }
   @media(max-width:700px){ #gHint{display:none;} }
   #gTooltip{
     position:fixed; z-index:120; pointer-events:none;
-    background:rgba(21,16,36,0.96); border:1px solid var(--panel-border);
+    background:rgba(255,255,255,0.97); border:1px solid var(--panel-border);
     border-radius:8px; padding:8px 11px; font-size:12.5px; color:var(--text);
     max-width:280px; line-height:1.45; display:none;
-    box-shadow:0 8px 24px rgba(0,0,0,0.45);
+    box-shadow:0 8px 24px rgba(26,21,48,0.18);
   }
   #gTooltip .tt-cat{color:var(--text-dim); font-size:10.5px; margin-top:2px;}
   .node{cursor:pointer;}
   .node-circle{transition:opacity .25s, stroke-width .15s;}
   .node.dim .node-circle{opacity:0.10;}
   .node.dim .node-label{opacity:0.06;}
-  .node.highlight .node-circle{stroke:#fff; stroke-width:2.2;}
+  .node.highlight .node-circle{stroke:#1A1530; stroke-width:2.2;}
   .node-label{
     fill:var(--text-dim); font-size:10.5px; pointer-events:none;
-    paint-order:stroke; stroke:rgba(10,7,18,0.85); stroke-width:3px; stroke-linejoin:round;
+    paint-order:stroke; stroke:rgba(255,255,255,0.92); stroke-width:3px; stroke-linejoin:round;
     transition:opacity .25s;
   }
-  .node.entity .node-label{fill:#EAE5F8; font-size:11.5px; font-weight:600;}
-  .link{stroke:#4E4470; stroke-opacity:0.4; fill:none; transition:opacity .25s, stroke .2s;}
-  .link.dim{opacity:0.04;}
-  .link.highlight{stroke:#A78BFF; stroke-opacity:0.9;}
+  .node.entity .node-label{fill:#241D42; font-size:11.5px; font-weight:600;}
+  .link{stroke:#C8C0DC; stroke-opacity:0.6; fill:none; transition:opacity .25s, stroke .2s;}
+  .link.dim{opacity:0.06;}
+  .link.highlight{stroke:#7A5AF0; stroke-opacity:0.9;}
 
   /* ---------- News ---------- */
   .news-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:42px;}
@@ -369,17 +373,22 @@
   .news-chip{
     font-size:10.5px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase;
     border-radius:5px; padding:2px 8px;
-    background:rgba(137,104,255,0.16); color:#A78BFF;
+    background:rgba(83,50,201,0.10); color:#5332C9;
   }
-  .news-chip.yt{background:rgba(255,85,85,0.15); color:#FF8585;}
-  .news-chip.book{background:rgba(212,175,55,0.15); color:#E0C25E;}
+  .news-chip.yt{background:rgba(255,85,85,0.13); color:#D63B3B;}
+  .news-chip.book{background:rgba(212,175,55,0.2); color:#96751A;}
   .news-title{font-size:14.5px; font-weight:650; line-height:1.45; flex:1;}
   .news-open{font-size:12.5px; color:var(--accent); font-weight:600;}
+
+  /* soft elevation for cards on the light background */
+  .about-card, .day-col, .venue-card, .casebook-card, .map-col, .news-card{
+    box-shadow:0 1px 3px rgba(26,21,48,0.05), 0 5px 16px rgba(26,21,48,0.05);
+  }
 
   /* ---------- Modal ---------- */
   #modalOverlay{
     position:fixed; inset:0; z-index:200;
-    background:rgba(5,6,9,0.72); backdrop-filter:blur(4px);
+    background:rgba(26,21,48,0.4); backdrop-filter:blur(4px);
     display:none; align-items:center; justify-content:center;
     padding:24px;
   }
@@ -388,7 +397,7 @@
     background:var(--panel); border:1px solid var(--panel-border); border-radius:16px;
     max-width:480px; width:100%;
     padding:30px 32px;
-    box-shadow:0 24px 64px rgba(0,0,0,0.55);
+    box-shadow:0 24px 64px rgba(26,21,48,0.28);
     animation:modalIn .18s ease-out;
   }
   @keyframes modalIn{from{opacity:0; transform:translateY(10px) scale(0.98);} to{opacity:1; transform:none;}}
@@ -397,8 +406,8 @@
   #modalCard .m-time{font-size:13.5px; color:var(--text-dim); font-variant-numeric:tabular-nums; margin-bottom:16px;}
   #modalCard .m-desc{font-size:14.5px; color:var(--text-dim); margin-bottom:20px;}
   #modalCard .m-tbd{
-    font-size:12.5px; color:#E0C25E;
-    background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.28);
+    font-size:12.5px; color:var(--gold-text);
+    background:rgba(212,175,55,0.12); border:1px solid rgba(212,175,55,0.4);
     border-radius:8px; padding:9px 13px;
   }
   #modalClose{
@@ -686,7 +695,7 @@
 
     <div id="graphPanel">
       <div id="gSearchWrap">
-        <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#8992a6" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#8992a6" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#9A93B5" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#9A93B5" stroke-width="2" stroke-linecap="round"/></svg>
         <input id="gSearchInput" type="text" placeholder="키워드로 검색 (예: Skild, 중국, 배터리…)" autocomplete="off" />
         <span id="gSearchCount"></span>
         <button id="gClearBtn" title="지우기">✕</button>
