@@ -429,31 +429,33 @@
     #gpanel{border-left:none; border-top:1px solid var(--panel-border); max-height:320px;}
   }
 
-  CSSEOF
-echo "css written"; wc -l "$SCRATCH/g.css"/* ---------- News ---------- */
-  .news-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:42px;}
-  @media(max-width:1000px){ .news-grid{grid-template-columns:repeat(2,1fr);} }
-  @media(max-width:680px){ .news-grid{grid-template-columns:1fr;} }
-  .news-card{
-    display:flex; flex-direction:column; gap:10px;
-    background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
-    padding:22px;
-    transition:transform .15s, border-color .15s;
+  /* ---------- News ---------- */
+  .news-list{margin-top:42px; border-top:1px solid var(--panel-border);}
+  .news-item{
+    display:flex; align-items:center; gap:16px;
+    padding:18px 8px;
+    border-bottom:1px solid var(--panel-border);
+    transition:background .15s;
   }
-  .news-card:hover{transform:translateY(-2px); border-color:var(--text-faint);}
-  .news-meta{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--text-faint);}
+  .news-item:hover{background:rgba(83,50,201,0.045);}
+  .news-item:hover .news-title{color:var(--violet);}
   .news-chip{
+    flex:none; min-width:52px; text-align:center;
     font-size:10.5px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase;
-    border-radius:5px; padding:2px 8px;
+    border-radius:5px; padding:3px 9px;
     background:rgba(83,50,201,0.10); color:#5332C9;
   }
   .news-chip.yt{background:rgba(255,85,85,0.13); color:#D63B3B;}
   .news-chip.book{background:rgba(212,175,55,0.2); color:#96751A;}
-  .news-title{font-size:14.5px; font-weight:650; line-height:1.45; flex:1;}
-  .news-open{font-size:12.5px; color:var(--accent); font-weight:600;}
+  .news-title{flex:1; min-width:0; font-size:15px; font-weight:600; color:var(--text); line-height:1.55; transition:color .15s;}
+  .news-date{flex:none; font-size:13px; color:var(--text-faint); font-variant-numeric:tabular-nums;}
+  @media(max-width:680px){
+    .news-item{flex-wrap:wrap; gap:10px; padding:16px 4px;}
+    .news-title{flex-basis:100%; order:3;}
+  }
 
   /* soft elevation for cards on the light background */
-  .about-card, .day-col, .venue-card, .casebook-card, .map-col, .news-card{
+  .about-card, .day-col, .venue-card, .casebook-card, .map-col{
     box-shadow:0 1px 3px rgba(26,21,48,0.05), 0 5px 16px rgba(26,21,48,0.05);
   }
 
@@ -802,9 +804,9 @@ echo "css written"; wc -l "$SCRATCH/g.css"/* ---------- News ---------- */
     <div class="sec-label">최신 뉴스</div>
     <h2 class="sec-title">Physical AI, 지금 일어나는 일</h2>
     <p class="sec-desc">
-      아카이브에 담기는 최신 시그널 — 계속 업데이트됩니다. 카드를 클릭하면 노션에서 전체 브리핑을 볼 수 있습니다.
+      아카이브에 담기는 최신 시그널 — 계속 업데이트됩니다. 제목을 클릭하면 노션에서 전체 브리핑이 열립니다.
     </p>
-    <div class="news-grid" id="newsGrid"></div>
+    <div class="news-list" id="newsList"></div>
   </div>
 </section>
 
@@ -958,17 +960,17 @@ const NEWS = [
    title:"1. Skild AI의 모든 것"}
 ];
 
-const newsGrid = document.getElementById("newsGrid");
+const newsList = document.getElementById("newsList");
 NEWS.forEach(n=>{
   const a = document.createElement("a");
-  a.className = "news-card";
+  a.className = "news-item";
   a.href = n.url; a.target = "_blank"; a.rel = "noopener";
   const chipCls = n.chip==="유튜브" ? "news-chip yt" : n.chip==="도서" ? "news-chip book" : "news-chip";
   a.innerHTML = `
-    <div class="news-meta"><span class="${chipCls}">${n.chip}</span><span>${n.date}</span></div>
-    <div class="news-title">${n.title}</div>
-    <div class="news-open">노션에서 읽기 →</div>`;
-  newsGrid.appendChild(a);
+    <span class="${chipCls}">${n.chip}</span>
+    <span class="news-title">${n.title}</span>
+    <span class="news-date">${n.date}</span>`;
+  newsList.appendChild(a);
 });
 
 /* ==================================================================
