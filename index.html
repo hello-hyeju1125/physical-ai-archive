@@ -6,6 +6,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Physical AI Hackathon · LG인화원 MBA 과정 · 2026년 8월 18–20일" />
 <style>
+  /* S-Core Dream (에스코어 드림) — 눈누 webfont */
+  @font-face{
+    font-family:'S-CoreDream';
+    src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+    font-weight:400; font-style:normal; font-display:swap;
+  }
+  @font-face{
+    font-family:'S-CoreDream';
+    src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+    font-weight:600; font-style:normal; font-display:swap;
+  }
+  @font-face{
+    font-family:'S-CoreDream';
+    src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-7ExtraBold.woff') format('woff');
+    font-weight:700; font-style:normal; font-display:swap;
+  }
+  @font-face{
+    font-family:'S-CoreDream';
+    src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
+    font-weight:800; font-style:normal; font-display:swap;
+  }
+
   :root{
     --bg:#FFFFFF;
     --bg2:#F7F5FC;
@@ -36,8 +58,8 @@
   body{
     background:var(--bg);
     color:var(--text);
-    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    line-height:1.6;
+    font-family:'S-CoreDream', -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    line-height:1.7;
     -webkit-font-smoothing:antialiased;
   }
   a{color:inherit; text-decoration:none;}
@@ -952,7 +974,7 @@ const CAT_LABEL = {
   company:"우리 회사 (LG그룹)", tech:"기반 기술", industry:"적용 산업",
   competitor:"경쟁 및 파트너", government:"정부/국가", agenda:"AI 전방위 통합 아젠다"
 };
-const GFONT = "-apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif";
+const GFONT = "'S-CoreDream', -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif";
 
 const entityByUrl = {}; ENTITIES.forEach(e=>entityByUrl[e.url]=e);
 const materialByUrl = {}; MATERIALS.forEach(m=>materialByUrl[m.url]=m);
@@ -996,6 +1018,8 @@ const network = new vis.Network(document.getElementById("gnet"), { nodes:gnodes,
   interaction:{ hover:true, tooltipDelay:150 }
 });
 network.on("stabilizationIterationsDone", ()=> network.fit({ animation:false }));
+// 웹폰트 로드 완료 후 캔버스 라벨을 S-Core Dream으로 다시 그림
+if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=> network.redraw()); }
 
 document.getElementById("gZoomIn").onclick  = ()=> network.moveTo({ scale: network.getScale()*1.35, animation:{duration:200} });
 document.getElementById("gZoomOut").onclick = ()=> network.moveTo({ scale: network.getScale()/1.35, animation:{duration:200} });
