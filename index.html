@@ -186,24 +186,31 @@
   .sec-desc{font-size:15.5px; color:var(--text-dim); max-width:720px;}
 
   /* ---------- About ---------- */
-  .about-grid{
-    display:grid; grid-template-columns:1.2fr 1fr; gap:56px; align-items:start;
-    margin-top:8px;
+  .about-text{max-width:780px; margin-top:8px;}
+  .about-text p{font-size:15.5px; color:var(--text-dim); margin-bottom:18px;}
+  .about-text p strong{color:var(--text); font-weight:650;}
+  .about-points{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:52px;
   }
-  .about-grid p{font-size:15.5px; color:var(--text-dim); margin-bottom:18px;}
-  .about-grid p strong{color:var(--text); font-weight:650;}
-  .about-cards{display:grid; gap:14px;}
-  .about-card{
+  @media(max-width:800px){ .about-points{grid-template-columns:1fr;} }
+  .point{
     background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
-    padding:20px 22px;
+    padding:30px 28px;
   }
-  .about-cards .about-card:nth-child(1){background:linear-gradient(135deg, rgba(83,50,201,0.09), #FFFFFF 65%);}
-  .about-cards .about-card:nth-child(2){background:linear-gradient(135deg, rgba(255,85,85,0.09), #FFFFFF 65%);}
-  .about-cards .about-card:nth-child(3){background:linear-gradient(135deg, rgba(212,175,55,0.13), #FFFFFF 65%);}
-  .about-card .ac-title{font-weight:700; font-size:14.5px; margin-bottom:5px; display:flex; align-items:center; gap:9px;}
-  .about-card .ac-dot{width:8px; height:8px; border-radius:50%; flex:none;}
-  .about-card p{font-size:13.5px; color:var(--text-dim); margin:0;}
-  @media(max-width:900px){ .about-grid{grid-template-columns:1fr;} }
+  .point:nth-child(1){background:linear-gradient(160deg, rgba(83,50,201,0.08), #FFFFFF 60%);}
+  .point:nth-child(2){background:linear-gradient(160deg, rgba(255,85,85,0.08), #FFFFFF 60%);}
+  .point:nth-child(3){background:linear-gradient(160deg, rgba(212,175,55,0.12), #FFFFFF 60%);}
+  .p-icon{
+    width:56px; height:56px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px;
+  }
+  .point:nth-child(1) .p-icon{background:rgba(83,50,201,0.12); color:var(--violet);}
+  .point:nth-child(2) .p-icon{background:rgba(255,85,85,0.13); color:var(--red-text);}
+  .point:nth-child(3) .p-icon{background:rgba(212,175,55,0.18); color:var(--gold-text);}
+  .p-title{font-size:19px; font-weight:800; letter-spacing:-0.2px;}
+  .p-title .ko{font-size:13px; color:var(--text-dim); font-weight:600; margin-left:9px;}
+  .point > p{font-size:14px; color:var(--text-dim); margin-top:9px;}
 
   /* ---------- Schedule ---------- */
   .sched-note{
@@ -445,7 +452,7 @@
   }
 
   /* soft elevation for cards on the light background */
-  .about-card, .day-col, .venue-card, .casebook-card, .map-col{
+  .point, .day-col, .venue-card, .casebook-card, .map-col{
     box-shadow:0 1px 3px rgba(26,21,48,0.05), 0 5px 16px rgba(26,21,48,0.05);
   }
 
@@ -532,36 +539,56 @@
   <div class="container">
     <div class="sec-label">소개</div>
     <h2 class="sec-title">왜 Physical AI인가, 그리고 왜 지금인가</h2>
-    <div class="about-grid">
-      <div>
-        <p>
-          <strong>Physical AI</strong>는 현실 세계를 인지하고, 판단하고, 행동하는 인공지능입니다.
-          휴머노이드 로봇과 자율 시스템부터 그들이 바꿔놓을 공장·가정·인프라까지 —
-          LG그룹은 이 분야를 미래 성장의 핵심 동력으로 보고 있습니다.
-        </p>
-        <p>
-          <strong>LG인화원 MBA 과정</strong>은 이 기회를 깊이 있게 고민하기 위해 3일을 마련했습니다.
-          기술을 이해하고, 경쟁 지형을 그리고, 그룹의 다음 장에 걸맞은
-          사업 전략을 직접 만들어 봅니다.
-        </p>
-        <p>
-          이 사이트는 해커톤의 베이스캠프입니다. 전체 일정, 케이스북, 전략 콘텐츠 맵,
-          인터랙티브 지식 그래프, 최신 산업 뉴스까지 — 필요한 모든 것을 한곳에서 확인하세요.
-        </p>
+    <div class="about-text">
+      <p>
+        <strong>Physical AI</strong>는 현실 세계를 인지하고, 판단하고, 행동하는 인공지능입니다.
+        휴머노이드 로봇과 자율 시스템부터 그들이 바꿔놓을 공장·가정·인프라까지 —
+        LG그룹은 이 분야를 미래 성장의 핵심 동력으로 보고 있습니다.
+      </p>
+      <p>
+        <strong>LG인화원 MBA 과정</strong>은 이 기회를 깊이 있게 고민하기 위해 3일을 마련했습니다.
+        기술을 이해하고, 경쟁 지형을 그리고, 그룹의 다음 장에 걸맞은
+        사업 전략을 직접 만들어 봅니다.
+      </p>
+      <p>
+        이 사이트는 해커톤의 베이스캠프입니다. 전체 일정, 케이스북, 전략 콘텐츠 맵,
+        인터랙티브 지식 그래프, 최신 산업 뉴스까지 — 필요한 모든 것을 한곳에서 확인하세요.
+      </p>
+    </div>
+    <div class="about-points">
+      <div class="point">
+        <div class="p-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        <div class="p-title">Learn<span class="ko">이해</span></div>
+        <p>케이스북과 아카이브로 Physical AI의 큰 그림을 이해합니다.</p>
       </div>
-      <div class="about-cards">
-        <div class="about-card">
-          <div class="ac-title"><span class="ac-dot" style="background:var(--accent)"></span>학습</div>
-          <p>케이스북과 아카이브로 Physical AI에 대한 공통의 기반을 다집니다.</p>
+      <div class="point">
+        <div class="p-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 2v6.3L4.7 18a2 2 0 0 0 1.8 3h11a2 2 0 0 0 1.8-3L14 8.3V2"/>
+            <path d="M8.5 2h7"/>
+            <path d="M7 16h10"/>
+          </svg>
         </div>
-        <div class="about-card">
-          <div class="ac-title"><span class="ac-dot" style="background:var(--red)"></span>경쟁</div>
-          <p>팀 미션, 게임, 멘토링 라운드를 통해 전략을 검증합니다.</p>
+        <div class="p-title">Experience<span class="ko">체험</span></div>
+        <p>부스와 팀 미션, 멘토링으로 기술을 직접 체험합니다.</p>
+      </div>
+      <div class="point">
+        <div class="p-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <path d="M8.6 13.5l6.8 4"/>
+            <path d="M15.4 6.5l-6.8 4"/>
+          </svg>
         </div>
-        <div class="about-card">
-          <div class="ac-title"><span class="ac-dot" style="background:var(--gold)"></span>피치</div>
-          <p>리더십 아젠다에 답하는 전략을 무대 위에서 증명합니다.</p>
-        </div>
+        <div class="p-title">Share<span class="ko">공유</span></div>
+        <p>전략을 피치로 완성해 통찰을 모두와 공유합니다.</p>
       </div>
     </div>
   </div>
