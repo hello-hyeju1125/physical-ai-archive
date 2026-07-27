@@ -488,7 +488,25 @@
   #gpanel .notion-btn:hover{background:#6747E5;}
   .glegend{display:flex; gap:18px; justify-content:center; margin-top:18px; font-size:12.5px; color:var(--text-dim); flex-wrap:wrap;}
   .glegend span{display:inline-flex; align-items:center; gap:6px;}
-  .glegend i{width:9px; height:9px; border-radius:50%; display:inline-block;}
+  .glegend i{width:9px; height:9px; border-radius:50%; display:inline-block; flex:none;}
+  .glegend i.sq{border-radius:2px;}
+  .glegend i.hex{border-radius:0; width:11px; height:10px; clip-path:polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);}
+  .glegend i.dot-sm{width:7px; height:7px;}
+  .glegend i.ring{width:7px; height:7px; background:var(--material); box-shadow:0 0 0 2px var(--gold);}
+  /* 태그 렌즈 칩 바 */
+  .gtags{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:14px;}
+  .gtags-label{font-size:12px; font-weight:700; color:rgba(255,255,255,0.6); margin-right:2px;}
+  .gtag{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:12px; font-weight:600; font-family:inherit;
+    color:#E8E2FA; background:rgba(255,255,255,0.10);
+    border:1px solid rgba(255,255,255,0.22); border-radius:999px;
+    padding:5px 12px; cursor:pointer; transition:background .13s, color .13s;
+  }
+  .gtag span{font-size:10.5px; opacity:0.7;}
+  .gtag:hover{background:rgba(255,255,255,0.2);}
+  .gtag.on{background:#FFFFFF; color:#2A1863; border-color:#FFFFFF;}
+  .gtag.on span{opacity:0.6;}
   @media (max-width:900px){
     .graph-shell{grid-template-columns:1fr; grid-template-rows:440px auto; height:auto;}
     #gnet{height:440px;}
@@ -856,6 +874,8 @@
       <span class="gcount" id="gCount"></span>
     </div>
 
+    <div class="gtags" id="gTags"></div>
+
     <div class="graph-shell">
       <div id="gnet"></div>
       <div class="gcontrols">
@@ -871,9 +891,10 @@
       <span><i style="background:var(--tech)"></i>기반 기술</span>
       <span><i style="background:var(--industry)"></i>적용 산업</span>
       <span><i style="background:var(--competitor)"></i>경쟁 및 파트너</span>
-      <span><i style="background:var(--government)"></i>정부/국가</span>
-      <span><i style="background:var(--agenda)"></i>AI 전방위 통합 아젠다</span>
-      <span><i style="background:var(--material)"></i>자료 (뉴스·아티클)</span>
+      <span><i class="sq" style="background:var(--government)"></i>정부/국가</span>
+      <span><i class="hex" style="background:var(--agenda)"></i>AI 전방위 통합 아젠다</span>
+      <span><i class="dot-sm" style="background:var(--material)"></i>자료 (제목은 클릭·호버 시)</span>
+      <span><i class="ring"></i>중요 자료 ★</span>
     </div>
   </div>
 </section>
@@ -1131,15 +1152,15 @@ const ENTITIES = [
 ];
 
 const MATERIALS = [
-  {url:"https://app.notion.com/382eef5aeac1802c9048c4c337fce368", name:"3. 만능 몸을 가진 로봇 두뇌", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c"},
-  {url:"https://app.notion.com/382eef5aeac1809db3dfd6a45b0e9cbe", name:"2. One Model, Any Scenario", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c"},
-  {url:"https://app.notion.com/382eef5aeac180b0ae4fd8970b243ef0", name:"1. Skild AI의 모든 것", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c"},
-  {url:"https://app.notion.com/39beef5aeac181378740d749f60609d1", name:"엔비디아·허깅페이스, 휴머노이드 VLA 모델 'Isaac GR00T 1.7'을 오픈소스 LeRobot에 통합", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392"},
-  {url:"https://app.notion.com/39beef5aeac181f29966c405f7dc65ea", name:"RoboCup 2026, 인천서 사상 첫 11대11 휴머노이드 로봇 축구 경기 개최", entity:null},
-  {url:"https://app.notion.com/39beef5aeac181feba43ddf950b6b323", name:"포춘: 'Physical AI'—50조 달러 기회와 에너지·하드웨어 병목", entity:"https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"},
-  {url:"https://app.notion.com/39beef5aeac1812298e4df8bd1395a23", name:"앤트그룹 로보얀트, 인과적 비디오-액션 모델 'LingBot-VA 2.0' 공개", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392"},
-  {url:"https://app.notion.com/39beef5aeac1812caeade2a86b77ab17", name:"중국, 올해 휴머노이드 로봇 생산 10만 대 돌파 전망…AI 핵심산업 230조원", entity:"https://app.notion.com/382eef5aeac181399d94f122cb58c134"},
-  {url:"https://app.notion.com/39beef5aeac1813f9532f43073e4f55e", name:"로보얀트, 오픈소스 VLA 모델 'LingBot-VLA 2.0' 공개", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392"}
+  {url:"https://app.notion.com/382eef5aeac1802c9048c4c337fce368", name:"3. 만능 몸을 가진 로봇 두뇌", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", imp:false, tags:["휴머노이드","파운데이션모델"]},
+  {url:"https://app.notion.com/382eef5aeac1809db3dfd6a45b0e9cbe", name:"2. One Model, Any Scenario", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", imp:false, tags:["파운데이션모델","휴머노이드"]},
+  {url:"https://app.notion.com/382eef5aeac180b0ae4fd8970b243ef0", name:"1. Skild AI의 모든 것", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", imp:false, tags:["파운데이션모델","투자·펀딩"]},
+  {url:"https://app.notion.com/39beef5aeac181378740d749f60609d1", name:"엔비디아·허깅페이스, 휴머노이드 VLA 모델 'Isaac GR00T 1.7'을 오픈소스 LeRobot에 통합", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392", imp:false, tags:["휴머노이드","VLA","오픈소스"]},
+  {url:"https://app.notion.com/39beef5aeac181f29966c405f7dc65ea", name:"RoboCup 2026, 인천서 사상 첫 11대11 휴머노이드 로봇 축구 경기 개최", entity:null, imp:false, tags:["휴머노이드"]},
+  {url:"https://app.notion.com/39beef5aeac181feba43ddf950b6b323", name:"포춘: 'Physical AI'—50조 달러 기회와 에너지·하드웨어 병목", entity:"https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276", imp:false, tags:["투자·펀딩","비용·수익성"]},
+  {url:"https://app.notion.com/39beef5aeac1812298e4df8bd1395a23", name:"앤트그룹 로보얀트, 인과적 비디오-액션 모델 'LingBot-VA 2.0' 공개", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392", imp:false, tags:["VLA"]},
+  {url:"https://app.notion.com/39beef5aeac1812caeade2a86b77ab17", name:"중국, 올해 휴머노이드 로봇 생산 10만 대 돌파 전망…AI 핵심산업 230조원", entity:"https://app.notion.com/382eef5aeac181399d94f122cb58c134", imp:false, tags:["휴머노이드","정부정책","상용화·양산"]},
+  {url:"https://app.notion.com/39beef5aeac1813f9532f43073e4f55e", name:"로보얀트, 오픈소스 VLA 모델 'LingBot-VLA 2.0' 공개", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392", imp:false, tags:["VLA","오픈소스"]}
 ];
 
 /* ---------- vis-network 지식 그래프 ---------- */
@@ -1159,27 +1180,34 @@ const degree = {};
 MATERIALS.forEach(m=>{ if(m.entity && entityByUrl[m.entity]) degree[m.entity]=(degree[m.entity]||0)+1; });
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const agendaShort = n => n==="기타" ? "기타" : (n.split(" - ")[1]||n).replace(/ 및 /g,"·");
+const shortTitle = s => s.length>14 ? s.slice(0,13)+"…" : s;
 
 const gnodes = new vis.DataSet();
 const gedges = new vis.DataSet();
 
 ENTITIES.forEach(e=>{
   const d = degree[e.url]||0;
+  const isAgenda = e.cat==="agenda";
+  const isGov = e.cat==="government";
   gnodes.add({
-    id:e.url, label:e.name, shape:"dot",
-    size: 13 + d*4,
+    id:e.url,
+    label: isAgenda ? agendaShort(e.name) : e.name,
+    shape: isAgenda ? "hexagon" : (isGov ? "square" : "dot"),
+    size: (isAgenda ? 16 : 13) + d*4,
     color: CAT_COLOR[e.cat],
-    font:{ color:"#241D42", size:13, face:GFONT },
+    font:{ color:"#241D42", size: isAgenda ? 12.5 : 13, face:GFONT },
     title: e.name + " · " + CAT_LABEL[e.cat] + (d ? " · 자료 "+d+"개" : "")
   });
 });
 MATERIALS.forEach(m=>{
   gnodes.add({
-    id:m.url, label: m.name.length>16 ? m.name.slice(0,15)+"…" : m.name,
-    shape:"dot", size:7,
-    color:"#A29BB8",
-    font:{ color:"#8C84A6", size:10.5, face:GFONT },
-    title: m.name
+    id:m.url, label:"",
+    shape:"dot", size: m.imp ? 9 : 7,
+    color: m.imp ? { background:"#A29BB8", border:"#D4AF37" } : "#A29BB8",
+    borderWidth: m.imp ? 2.5 : 0,
+    font:{ color:"#6E6690", size:10.5, face:GFONT },
+    title: (m.imp ? "★ " : "") + m.name
   });
   if(m.entity && entityByUrl[m.entity]) gedges.add({ from:m.url, to:m.entity });
 });
@@ -1202,6 +1230,7 @@ document.getElementById("gZoomIn").onclick  = ()=> network.moveTo({ scale: netwo
 document.getElementById("gZoomOut").onclick = ()=> network.moveTo({ scale: network.getScale()/1.35, animation:{duration:200} });
 document.getElementById("gFit").onclick     = ()=> network.fit({ animation:{duration:300} });
 
+/* ---------- 하이라이트 시스템 ---------- */
 let baseLook = {};
 function snapshotLook(){
   baseLook = {};
@@ -1209,33 +1238,45 @@ function snapshotLook(){
 }
 snapshotLook();
 
-function highlight(nodeId){
-  const conn = new Set(network.getConnectedNodes(nodeId)); conn.add(nodeId);
+function setMatLabels(ids, on){
+  ids.forEach(id=>{
+    const m = materialByUrl[id];
+    if(m) gnodes.update({ id, label: on ? shortTitle(m.name) : "" });
+  });
+}
+function resetMatLabels(){
+  MATERIALS.forEach(m=> gnodes.update({ id:m.url, label:"" }));
+}
+function dimExcept(activeSet){
   gnodes.forEach(n=>{
-    const on = conn.has(n.id);
+    const on = activeSet.has(n.id);
     gnodes.update({ id:n.id,
       color: on ? baseLook[n.id].color : "#E9E5F2",
       font:{ ...baseLook[n.id].font, color: on ? "#1A1530" : "#C4BED6" },
-      opacity: on ? 1 : 0.35 });
+      opacity: on ? 1 : 0.3 });
   });
 }
 function clearHighlight(){
-  gnodes.forEach(n=> gnodes.update({ id:n.id, color:baseLook[n.id].color, font:{...baseLook[n.id].font}, opacity:1 }));
+  gnodes.forEach(n=>{
+    const upd = { id:n.id, color:baseLook[n.id].color, font:{...baseLook[n.id].font}, opacity:1 };
+    if(materialByUrl[n.id]) upd.label = "";
+    gnodes.update(upd);
+  });
+}
+function highlight(nodeId){
+  const conn = new Set(network.getConnectedNodes(nodeId)); conn.add(nodeId);
+  resetMatLabels();
+  dimExcept(conn);
+  setMatLabels([...conn], true);
 }
 
+/* ---------- 정보 패널 ---------- */
 const gpanel = document.getElementById("gpanel");
 const EMPTY_PANEL = '<div class="empty">노드를 클릭하면<br/>정보가 나타납니다.</div>';
 
 function notionBtn(url){
   return `<button class="notion-btn" onclick="window.open('${url}','_blank','noopener')">노션에서 열기 →</button>`;
 }
-
-window.gFocusNode = id => {
-  if(!gnodes.get(id)) return;
-  network.focus(id, { scale:1.0, animation:{duration:400} });
-  network.selectNodes([id]);
-  showNode(id);
-};
 
 function showNode(id){
   highlight(id);
@@ -1247,7 +1288,7 @@ function showNode(id){
       <span class="cat-chip" style="background:${CAT_COLOR[e.cat]}">${CAT_LABEL[e.cat]}</span>
       <div class="sub">연결된 자료 ${mats.length}개${mats.length ? " — 제목을 누르면 해당 노드로 이동합니다" : ""}</div>
       ${mats.length ? `<div class="k">연결된 자료</div>
-      <div class="chiprow">${mats.map(m=>`<button class="chip" onclick="gFocusNode('${m.url}')">${esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`).join("")}</div>` : ""}
+      <div class="chiprow">${mats.map(m=>`<button class="chip" onclick="gFocusNode('${m.url}')">${(m.imp?"★ ":"")+esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`).join("")}</div>` : ""}
       ${notionBtn(e.url)}`;
     return;
   }
@@ -1255,17 +1296,33 @@ function showNode(id){
   if(m){
     const ent = m.entity ? entityByUrl[m.entity] : null;
     gpanel.innerHTML = `
-      <h4>${esc(m.name)}</h4>
+      <h4>${m.imp ? "★ " : ""}${esc(m.name)}</h4>
       <div class="sub">자료 · 뉴스/아티클</div>
       ${ent ? `<div class="k">분야</div>
       <div class="chiprow"><button class="chip" onclick="gFocusNode('${ent.url}')">${esc(ent.name)}</button></div>` : ""}
+      ${m.tags && m.tags.length ? `<div class="k">태그</div>
+      <div class="chiprow">${m.tags.map(t=>`<button class="chip" onclick="gTagLens('${t}')">#${esc(t)}</button>`).join("")}</div>` : ""}
       ${notionBtn(m.url)}`;
   }
 }
 
+window.gFocusNode = id => {
+  if(!gnodes.get(id)) return;
+  activeTag = null; renderTagBar();
+  network.focus(id, { scale:1.0, animation:{duration:400} });
+  network.selectNodes([id]);
+  showNode(id);
+};
+
 network.on("click", params=>{
   const id = params.nodes[0];
-  if(!id){ clearHighlight(); network.unselectAll(); gpanel.innerHTML = EMPTY_PANEL; return; }
+  if(!id){
+    activeTag = null; renderTagBar();
+    clearHighlight(); network.unselectAll();
+    gpanel.innerHTML = EMPTY_PANEL;
+    return;
+  }
+  activeTag = null; renderTagBar();
   showNode(id);
 });
 network.on("doubleClick", params=>{
@@ -1273,18 +1330,63 @@ network.on("doubleClick", params=>{
   if(id) window.open(id, "_blank", "noopener");
 });
 
-/* ---------- 검색 ---------- */
+/* ---------- 태그 렌즈 (칩 바) ---------- */
+const tagIndex = {};
+MATERIALS.forEach(m=> (m.tags||[]).forEach(t=>{ (tagIndex[t] = tagIndex[t]||[]).push(m.url); }));
+const gTagsEl = document.getElementById("gTags");
+let activeTag = null;
+
+function renderTagBar(){
+  const tags = Object.keys(tagIndex).sort((a,b)=> tagIndex[b].length - tagIndex[a].length);
+  if(!tags.length){ gTagsEl.style.display = "none"; return; }
+  gTagsEl.style.display = "";
+  gTagsEl.innerHTML = '<span class="gtags-label">태그로 보기</span>' + tags.map(t=>
+    `<button class="gtag${t===activeTag ? " on" : ""}" onclick="gTagLens('${t}')">#${esc(t)}<span>${tagIndex[t].length}</span></button>`).join("");
+}
+window.gTagLens = tag => {
+  if(activeTag === tag){
+    activeTag = null; renderTagBar();
+    clearHighlight(); network.unselectAll();
+    gpanel.innerHTML = EMPTY_PANEL;
+    return;
+  }
+  activeTag = tag; renderTagBar();
+  const mats = tagIndex[tag] || [];
+  const conn = new Set(mats);
+  mats.forEach(id=> network.getConnectedNodes(id).forEach(nb=> conn.add(nb)));
+  resetMatLabels();
+  dimExcept(conn);
+  setMatLabels(mats, true);
+  network.unselectAll();
+  network.fit({ nodes:[...conn], animation:{duration:400} });
+  gpanel.innerHTML = `
+    <h4>#${esc(tag)}</h4>
+    <div class="sub">이 태그가 달린 자료 ${mats.length}개 — 제목을 누르면 해당 노드로 이동합니다</div>
+    <div class="chiprow">${mats.map(u=>{ const m = materialByUrl[u];
+      return `<button class="chip" onclick="gFocusNode('${u}')">${(m.imp?"★ ":"")+esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`; }).join("")}</div>`;
+};
+renderTagBar();
+
+/* ---------- 검색 (제목 + 엔티티 + 태그) ---------- */
 const gq = document.getElementById("gq");
 const gCount = document.getElementById("gCount");
 function graphSearch(){
   const q = gq.value.trim().toLowerCase();
+  activeTag = null; renderTagBar();
   if(!q){ gCount.textContent=""; clearHighlight(); network.unselectAll(); gpanel.innerHTML = EMPTY_PANEL; return; }
-  const hits = [];
-  ENTITIES.forEach(e=>{ if(e.name.toLowerCase().includes(q)) hits.push(e.url); });
-  MATERIALS.forEach(m=>{ if(m.name.toLowerCase().includes(q)) hits.push(m.url); });
+  const entityHits = ENTITIES.filter(e=> e.name.toLowerCase().includes(q)).map(e=>e.url);
+  const matHits = MATERIALS.filter(m=> m.name.toLowerCase().includes(q) || (m.tags||[]).some(t=> t.toLowerCase().includes(q))).map(m=>m.url);
+  const hits = [...entityHits, ...matHits];
   if(!hits.length){ gCount.textContent = "일치 없음"; return; }
   gCount.textContent = hits.length + "개 일치";
-  gFocusNode(hits[0]);
+  if(hits.length === 1){ gFocusNode(hits[0]); return; }
+  const conn = new Set(hits);
+  hits.forEach(id=> network.getConnectedNodes(id).forEach(nb=> conn.add(nb)));
+  resetMatLabels();
+  dimExcept(conn);
+  setMatLabels(matHits, true);
+  network.unselectAll();
+  network.fit({ nodes:[...conn], animation:{duration:400} });
 }
 document.getElementById("gqGo").addEventListener("click", graphSearch);
 gq.addEventListener("keydown", e=>{ if(e.key==="Enter") graphSearch(); });
