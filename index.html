@@ -395,9 +395,27 @@
   }
   .m-item{
     position:relative;
-    padding:5px 0 5px 15px;
+    padding:5px 8px 5px 15px;
     line-height:1.55;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .13s;
   }
+  .m-item:hover{background:rgba(26,21,48,0.05);}
+  .col-lg .m-item:hover .mi-title{color:var(--gold-text);}
+  .col-ind .m-item:hover .mi-title{color:var(--industry);}
+  .col-glo .m-item:hover .mi-title{color:var(--red-text);}
+  #mapToast{
+    position:fixed; left:50%; bottom:36px; z-index:600;
+    transform:translateX(-50%) translateY(10px);
+    background:#1A1530; color:#FFFFFF;
+    font-size:13px; font-weight:600;
+    padding:11px 20px; border-radius:999px;
+    box-shadow:0 8px 24px rgba(26,21,48,0.3);
+    opacity:0; pointer-events:none;
+    transition:opacity .2s, transform .2s;
+  }
+  #mapToast.show{opacity:1; transform:translateX(-50%) translateY(0);}
   .m-item::before{
     content:""; position:absolute; left:0; top:13px;
     width:6px; height:6px; border-radius:50%;
@@ -721,27 +739,27 @@
           <div class="m-q">Physical AI를 위한 우리의 빌딩 블록</div>
         </div>
         <div class="map-col-body">
-          <div class="m-item">
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac181b5823cde6167b38c34">
             <div class="mi-title">전자 <em>· '구동/관절' (구동·제어 부품)</em></div>
             <div class="mi-sub">액추에이터 'AXIUM', 초고속 AI DD모터, 드라이버, 감속기 모듈</div>
           </div>
-          <div class="m-item">
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac181c4b50bcef94f6010fc">
             <div class="mi-title">에너지솔루션 <em>· '심장' (에너지 및 소재)</em></div>
             <div class="mi-sub">고출력 NCM 배터리, 46시리즈 원통형, 무음극 전고체 배터리</div>
           </div>
-          <div class="m-item">
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac1819cb0dee52aacff9aa6">
             <div class="mi-title">이노텍 <em>· '눈' (인지 및 센싱)</em></div>
             <div class="mi-sub">반도체 기판, 3D 카메라, 라이다 센서, 비전 센싱, 정밀 카메라 모듈</div>
           </div>
-          <div class="m-item">
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac1817f8e98e9ce3b106701">
             <div class="mi-title">디스플레이 <em>· '얼굴' (인터페이스)</em></div>
             <div class="mi-sub">곡면 플라스틱 OLED(P-OLED) 패널, 플렉시블 인터페이스</div>
           </div>
-          <div class="m-item">
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac18192839cca7e9eaf7e9b">
             <div class="mi-title">AI연구원 <em>· '두뇌' (파운데이션 AI)</em></div>
             <div class="mi-sub">초거대 AI '엑사원(EXAONE) 4.5'</div>
           </div>
-          <div class="m-item">
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac181539e7afda07d969f97">
             <div class="mi-title">CNS <em>· '신경망' (시스템 통합 플랫폼)</em></div>
             <div class="mi-sub">에이전틱 AI 기반 로봇 전환(RX), 플랫폼 '피지컬웍스(PhysicalWorks)'</div>
           </div>
@@ -757,21 +775,21 @@
         </div>
         <div class="map-col-body">
           <div class="m-group-label">Physical AI를 가능케 하는 시장</div>
-          <div class="m-item"><div class="mi-title">데이터센터·인프라</div></div>
-          <div class="m-item"><div class="mi-title">AI 반도체·칩</div></div>
-          <div class="m-item"><div class="mi-title">센서 및 인식 모듈</div></div>
-          <div class="m-item"><div class="mi-title">액추에이터·구동 시스템</div></div>
-          <div class="m-item"><div class="mi-title">배터리·에너지 저장 및 첨단 소재</div></div>
-          <div class="m-item"><div class="mi-title">AI 모델·소프트웨어·플랫폼</div></div>
-          <div class="m-item"><div class="mi-title">통신 네트워크·시스템 통합·운영 솔루션</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac18158a06ace5c93415f3d"><div class="mi-title">데이터센터·인프라</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac18194aa7cdb0b37e6f5d6"><div class="mi-title">AI 반도체·칩</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac18161a153f7dff25572c6"><div class="mi-title">센서 및 인식 모듈</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac1816fb5aef827e87ec16d"><div class="mi-title">액추에이터·구동 시스템</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac181afbdcec11a3b2e41d2"><div class="mi-title">배터리·에너지 저장 및 첨단 소재</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac1811abf90d96575c6d392"><div class="mi-title">AI 모델·소프트웨어·플랫폼</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac181aaa7d6fd48efe962a3"><div class="mi-title">통신 네트워크·시스템 통합·운영 솔루션</div></div>
           <div class="m-group-label">Physical AI가 적용되는 시장</div>
-          <div class="m-item"><div class="mi-title">자동차·모빌리티</div><div class="mi-sub">자율주행, 차량 제조</div></div>
-          <div class="m-item"><div class="mi-title">가전·홈·서비스</div><div class="mi-sub">청소 로봇, 서비스 로봇</div></div>
-          <div class="m-item"><div class="mi-title">제조</div><div class="mi-sub">산업용 협동 로봇, 스마트 팩토리</div></div>
-          <div class="m-item"><div class="mi-title">물류·유통</div><div class="mi-sub">창고 자동화, 라스트마일</div></div>
-          <div class="m-item"><div class="mi-title">헬스케어</div><div class="mi-sub">수술·재활·돌봄 로봇</div></div>
-          <div class="m-item"><div class="mi-title">에너지·인프라·공공</div><div class="mi-sub">발전 플랜트, 공공 서비스</div></div>
-          <div class="m-item"><div class="mi-title">휴머노이드 (범용)</div><div class="mi-sub">국방·농업·항만 등</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac1812c91c1e289cf2eadd7"><div class="mi-title">자동차·모빌리티</div><div class="mi-sub">자율주행, 차량 제조</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac181d29de0c0f5a116ec59"><div class="mi-title">가전·홈·서비스</div><div class="mi-sub">청소 로봇, 서비스 로봇</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac181dba445e0a521861263"><div class="mi-title">제조</div><div class="mi-sub">산업용 협동 로봇, 스마트 팩토리</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac181edb4c6f742a55b8a78"><div class="mi-title">물류·유통</div><div class="mi-sub">창고 자동화, 라스트마일</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac1811d8cadf93e7652cb43"><div class="mi-title">헬스케어</div><div class="mi-sub">수술·재활·돌봄 로봇</div></div>
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac1813ba0bfdb105201238d"><div class="mi-title">에너지·인프라·공공</div><div class="mi-sub">발전 플랜트, 공공 서비스</div></div>
+          <div class="m-item" data-notion=""><div class="mi-title">휴머노이드 (범용)</div><div class="mi-sub">국방·농업·항만 등</div></div>
         </div>
       </div>
 
@@ -784,34 +802,34 @@
         </div>
         <div class="map-col-body">
           <div class="m-group-label">글로벌 경쟁·파트너</div>
-          <div class="m-item">
+          <div class="m-item" data-notion="">
             <div class="mi-title">'풀스택 선도' <em>· Tesla, NVIDIA</em></div>
             <div class="mi-sub">수직 통합 지향, 시뮬레이션부터 디바이스까지 커버</div>
           </div>
-          <div class="m-item">
+          <div class="m-item" data-notion="">
             <div class="mi-title">'휴머노이드 전문' <em>· Boston Dynamics, Figure AI</em></div>
             <div class="mi-sub">범용 인간형 로봇 개발</div>
           </div>
-          <div class="m-item">
+          <div class="m-item" data-notion="https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c">
             <div class="mi-title">'AI 모델·범용 지능' <em>· Skild AI</em></div>
             <div class="mi-sub">Foundation Model 중심</div>
           </div>
-          <div class="m-item">
+          <div class="m-item" data-notion="">
             <div class="mi-title">'산업·전문 로봇' <em>· ABB, FANUC, KUKA</em></div>
           </div>
-          <div class="m-item">
+          <div class="m-item" data-notion="">
             <div class="mi-title">'중국 플레이어' <em>· BYD, Unitree, Xiaomi</em></div>
           </div>
           <div class="m-group-label">국가간 경쟁 · 정책 · 환경</div>
-          <div class="m-item gov">
+          <div class="m-item gov" data-notion="https://app.notion.com/382eef5aeac18179911aff087de480d3">
             <div class="mi-title">미국 <em>· 풀스택 AI 패권</em></div>
             <div class="mi-sub">CHIPS Act, 수출통제, AI 모델 우위, 자금 집중</div>
           </div>
-          <div class="m-item gov">
+          <div class="m-item gov" data-notion="https://app.notion.com/382eef5aeac181399d94f122cb58c134">
             <div class="mi-title">중국 <em>· 국가 주도 로봇 성장</em></div>
             <div class="mi-sub">국가 차원 로봇 도시, 휴머노이드 로드맵</div>
           </div>
-          <div class="m-item gov">
+          <div class="m-item gov" data-notion="https://app.notion.com/382eef5aeac18188ae0ee010cf17b8c4">
             <div class="mi-title">일본 <em>· 정밀 제조 기반</em></div>
             <div class="mi-sub">무인화·고령화 대응, 산업용·소부장</div>
           </div>
@@ -1033,6 +1051,29 @@ NEWS.forEach(n=>{
     <span class="news-title">${n.title}</span>
     <span class="news-date">${n.date}</span>`;
   newsList.appendChild(a);
+});
+
+/* ==================================================================
+   콘텐츠 맵 → 노션 링크
+   각 .m-item의 data-notion 속성에 노션 페이지 URL을 넣으면 클릭 시 이동.
+   비어 있으면 "준비 중" 안내가 표시됩니다.
+================================================================== */
+const mapToast = document.createElement("div");
+mapToast.id = "mapToast";
+document.body.appendChild(mapToast);
+let mapToastTimer = null;
+function showMapToast(msg){
+  mapToast.textContent = msg;
+  mapToast.classList.add("show");
+  clearTimeout(mapToastTimer);
+  mapToastTimer = setTimeout(()=> mapToast.classList.remove("show"), 2000);
+}
+document.querySelectorAll(".m-item").forEach(el=>{
+  el.addEventListener("click", ()=>{
+    const url = el.dataset.notion;
+    if(url) window.open(url, "_blank", "noopener");
+    else showMapToast("이 항목의 노션 페이지는 준비 중입니다");
+  });
 });
 
 /* ==================================================================
