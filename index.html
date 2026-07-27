@@ -276,89 +276,68 @@
   .col-glo .m-item.gov{border-left-color:var(--gold);}
 
   /* ---------- Knowledge Graph ---------- */
-  #graphPanel{
-    position:relative; margin-top:42px;
-    height:clamp(560px, 76vh, 740px);
-    background:radial-gradient(ellipse at 50% 30%, #F1EDFA 0%, #FBFAFE 75%);
-    border:1px solid var(--panel-border); border-radius:var(--radius);
-    overflow:hidden;
+  .gsearchbar{display:flex; gap:10px; margin-top:26px; align-items:center;}
+  .gsearchbar input{
+    flex:1; max-width:360px;
+    border:1.5px solid var(--panel-border); border-radius:10px;
+    padding:11px 16px; font-size:14px; font-family:inherit;
+    color:var(--text); background:var(--panel); outline:none;
   }
-  #graphSvg{width:100%; height:100%; display:block; cursor:grab;}
-  #graphSvg:active{cursor:grabbing;}
-  #gSearchWrap{
-    position:absolute; top:16px; right:16px; z-index:20;
-    display:flex; align-items:center; gap:8px;
-    background:rgba(255,255,255,0.9);
-    border:1px solid var(--panel-border);
-    border-radius:10px;
-    padding:9px 14px;
-    backdrop-filter:blur(10px);
-    box-shadow:0 2px 10px rgba(26,21,48,0.06);
-    width:min(320px, calc(100% - 32px));
+  .gsearchbar input:focus{border-color:var(--violet);}
+  .gsearchbar input::placeholder{color:var(--text-faint);}
+  .gsearchbar .btn{font-family:inherit; cursor:pointer;}
+  .gsearchbar .gcount{font-size:12.5px; color:var(--text-faint); white-space:nowrap;}
+  .graph-shell{
+    position:relative; margin-top:26px;
+    display:grid; grid-template-columns:1fr 330px; grid-template-rows:minmax(0,1fr);
+    height:620px;
+    background:var(--panel); border:1px solid var(--panel-border);
+    border-radius:20px; overflow:hidden;
+    box-shadow:0 1px 3px rgba(26,21,48,0.05), 0 8px 24px rgba(26,21,48,0.07);
   }
-  #gSearchWrap .icon{flex:none; width:15px; height:15px; opacity:0.55;}
-  #gSearchInput{
-    flex:1; min-width:0;
-    background:transparent; border:none; outline:none;
-    color:var(--text); font-size:13.5px; font-family:inherit;
+  #gnet{min-width:0; height:100%; background:radial-gradient(ellipse at 50% 35%, #F3F0FB 0%, #FBFAFE 80%);}
+  .gcontrols{position:absolute; left:14px; top:14px; display:flex; flex-direction:column; gap:6px; z-index:5;}
+  .gbtn{
+    width:34px; height:34px; border-radius:9px;
+    background:var(--panel); border:1px solid var(--panel-border);
+    color:var(--text-dim); font-size:15px; font-weight:700; font-family:inherit;
+    cursor:pointer; box-shadow:0 1px 4px rgba(26,21,48,0.08);
   }
-  #gSearchInput::placeholder{color:var(--text-faint);}
-  #gSearchCount{font-size:11px; color:var(--text-faint); white-space:nowrap;}
-  #gClearBtn{
-    display:none; cursor:pointer; border:none; background:none; color:var(--text-dim);
-    font-size:14px; padding:0 2px; line-height:1;
+  .gbtn:hover{color:var(--violet); border-color:var(--violet);}
+  .gbtn.wide{width:auto; padding:0 12px; font-size:12px;}
+  #gpanel{border-left:1px solid var(--panel-border); overflow-y:auto; padding:22px; background:var(--panel);}
+  #gpanel .empty{color:var(--text-faint); font-size:13.5px; line-height:1.7; margin-top:44px; text-align:center;}
+  #gpanel h4{font-size:17px; font-weight:800; letter-spacing:-0.2px; line-height:1.4; margin-bottom:8px;}
+  #gpanel .cat-chip{
+    display:inline-block; font-size:11px; font-weight:700; border-radius:6px;
+    padding:3px 10px; margin-bottom:6px; color:#fff;
   }
-  #gClearBtn:hover{color:var(--text);}
-  #gLegend{
-    position:absolute; left:16px; bottom:16px; z-index:20;
-    background:rgba(255,255,255,0.9);
-    border:1px solid var(--panel-border);
-    border-radius:12px;
-    padding:13px 15px;
-    backdrop-filter:blur(10px);
-    box-shadow:0 2px 10px rgba(26,21,48,0.06);
-    font-size:12px;
-    max-width:220px;
+  #gpanel .sub{color:var(--text-dim); font-size:13px; margin:6px 0 4px; line-height:1.6;}
+  #gpanel .k{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); margin:16px 0 8px;}
+  #gpanel .chiprow{display:flex; flex-wrap:wrap; gap:6px;}
+  #gpanel .chip{
+    font-size:12px; font-weight:600; color:var(--text-dim);
+    background:var(--panel2); border:1px solid var(--panel-border); border-radius:999px;
+    padding:5px 11px; cursor:pointer; font-family:inherit; text-align:left; line-height:1.4;
   }
-  #gLegend .lg-title{font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px;}
-  #gLegend .lg-row{display:flex; align-items:center; gap:8px; margin:5px 0; cursor:pointer; user-select:none; transition:opacity .15s;}
-  #gLegend .lg-row.dim{opacity:0.35;}
-  #gLegend .lg-dot{width:10px; height:10px; border-radius:50%; flex:none;}
-  #gLegend .lg-row span.lbl{color:var(--text-dim); font-size:11.5px;}
-  #gLegend .lg-sep{height:1px; background:var(--panel-border); margin:8px 0;}
-  #gLegend .lg-mat{width:7px; height:7px; border-radius:50%; background:var(--material); flex:none;}
-  #gHint{
-    position:absolute; right:16px; bottom:16px; z-index:20;
-    font-size:11px; color:var(--text-faint);
-    background:rgba(255,255,255,0.8); border:1px solid var(--panel-border);
-    border-radius:10px; padding:9px 13px; backdrop-filter:blur(10px);
-    line-height:1.55; text-align:right;
+  #gpanel .chip:hover{color:var(--violet); border-color:var(--violet);}
+  #gpanel .notion-btn{
+    display:inline-flex; align-items:center; gap:6px; margin-top:18px;
+    background:var(--violet); color:#fff; font-size:13px; font-weight:700;
+    border-radius:9px; padding:10px 16px; border:none; cursor:pointer; font-family:inherit;
   }
-  @media(max-width:700px){ #gHint{display:none;} }
-  #gTooltip{
-    position:fixed; z-index:120; pointer-events:none;
-    background:rgba(255,255,255,0.97); border:1px solid var(--panel-border);
-    border-radius:8px; padding:8px 11px; font-size:12.5px; color:var(--text);
-    max-width:280px; line-height:1.45; display:none;
-    box-shadow:0 8px 24px rgba(26,21,48,0.18);
+  #gpanel .notion-btn:hover{background:#6747E5;}
+  .glegend{display:flex; gap:18px; justify-content:center; margin-top:18px; font-size:12.5px; color:var(--text-dim); flex-wrap:wrap;}
+  .glegend span{display:inline-flex; align-items:center; gap:6px;}
+  .glegend i{width:9px; height:9px; border-radius:50%; display:inline-block;}
+  @media (max-width:900px){
+    .graph-shell{grid-template-columns:1fr; grid-template-rows:440px auto; height:auto;}
+    #gnet{height:440px;}
+    #gpanel{border-left:none; border-top:1px solid var(--panel-border); max-height:320px;}
   }
-  #gTooltip .tt-cat{color:var(--text-dim); font-size:10.5px; margin-top:2px;}
-  .node{cursor:pointer;}
-  .node-circle{transition:opacity .25s, stroke-width .15s;}
-  .node.dim .node-circle{opacity:0.10;}
-  .node.dim .node-label{opacity:0.06;}
-  .node.highlight .node-circle{stroke:#1A1530; stroke-width:2.2;}
-  .node-label{
-    fill:var(--text-dim); font-size:10.5px; pointer-events:none;
-    paint-order:stroke; stroke:rgba(255,255,255,0.92); stroke-width:3px; stroke-linejoin:round;
-    transition:opacity .25s;
-  }
-  .node.entity .node-label{fill:#241D42; font-size:11.5px; font-weight:600;}
-  .link{stroke:#C8C0DC; stroke-opacity:0.6; fill:none; transition:opacity .25s, stroke .2s;}
-  .link.dim{opacity:0.06;}
-  .link.highlight{stroke:#7A5AF0; stroke-opacity:0.9;}
 
-  /* ---------- News ---------- */
+  CSSEOF
+echo "css written"; wc -l "$SCRATCH/g.css"/* ---------- News ---------- */
   .news-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:42px;}
   @media(max-width:1000px){ .news-grid{grid-template-columns:repeat(2,1fr);} }
   @media(max-width:680px){ .news-grid{grid-template-columns:1fr;} }
@@ -428,6 +407,7 @@
   footer a{color:var(--text-dim); font-weight:600;}
   footer a:hover{color:var(--text);}
 </style>
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 </head>
 <body>
 
@@ -689,29 +669,35 @@
     <div class="sec-label">지식 그래프</div>
     <h2 class="sec-title">Physical AI 지형 탐색하기</h2>
     <p class="sec-desc">
-      Physical AI 아카이브의 엔티티와 자료를 연결한 인터랙티브 맵입니다.
-      연결이 많은 노드일수록 크게 표시됩니다. <strong style="color:var(--text)">노드를 클릭하면 해당 노션 페이지가 열립니다.</strong>
+      Physical AI 아카이브의 엔티티와 자료가 연결된 살아있는 지도입니다.
+      연결이 많은 노드일수록 크게 표시됩니다.
+      <strong style="color:var(--text)">노드를 클릭하면 오른쪽 패널에 정보가, 더블클릭하면 노션 페이지가 열립니다.</strong>
     </p>
 
-    <div id="graphPanel">
-      <div id="gSearchWrap">
-        <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#9A93B5" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#9A93B5" stroke-width="2" stroke-linecap="round"/></svg>
-        <input id="gSearchInput" type="text" placeholder="키워드로 검색 (예: Skild, 중국, 배터리…)" autocomplete="off" />
-        <span id="gSearchCount"></span>
-        <button id="gClearBtn" title="지우기">✕</button>
+    <div class="gsearchbar">
+      <input id="gq" placeholder="키워드로 검색 (예: Skild, 중국, 배터리…)" autocomplete="off" />
+      <button class="btn primary" id="gqGo">검색</button>
+      <span class="gcount" id="gCount"></span>
+    </div>
+
+    <div class="graph-shell">
+      <div id="gnet"></div>
+      <div class="gcontrols">
+        <button class="gbtn" id="gZoomIn" title="확대">＋</button>
+        <button class="gbtn" id="gZoomOut" title="축소">－</button>
+        <button class="gbtn wide" id="gFit" title="전체 보기">전체</button>
       </div>
-      <div id="gLegend">
-        <div class="lg-title">카테고리</div>
-        <div class="lg-row" data-cat="company"><span class="lg-dot" style="background:var(--company)"></span><span class="lbl">우리 회사 (LG그룹)</span></div>
-        <div class="lg-row" data-cat="tech"><span class="lg-dot" style="background:var(--tech)"></span><span class="lbl">기반 기술</span></div>
-        <div class="lg-row" data-cat="industry"><span class="lg-dot" style="background:var(--industry)"></span><span class="lbl">적용 산업</span></div>
-        <div class="lg-row" data-cat="competitor"><span class="lg-dot" style="background:var(--competitor)"></span><span class="lbl">경쟁 및 파트너</span></div>
-        <div class="lg-row" data-cat="government"><span class="lg-dot" style="background:var(--government)"></span><span class="lbl">정부/국가</span></div>
-        <div class="lg-row" data-cat="agenda"><span class="lg-dot" style="background:var(--agenda)"></span><span class="lbl">AI 전방위 통합 아젠다</span></div>
-        <div class="lg-sep"></div>
-        <div class="lg-row" data-cat="material"><span class="lg-mat"></span><span class="lbl">자료 (뉴스·아티클)</span></div>
-      </div>
-      <div id="gHint">노드를 클릭하면 노션 페이지가 열립니다<br/>드래그로 이동 · 휠로 확대/축소</div>
+      <aside id="gpanel"><div class="empty">노드를 클릭하면<br/>정보가 나타납니다.</div></aside>
+    </div>
+
+    <div class="glegend">
+      <span><i style="background:var(--company)"></i>우리 회사 (LG그룹)</span>
+      <span><i style="background:var(--tech)"></i>기반 기술</span>
+      <span><i style="background:var(--industry)"></i>적용 산업</span>
+      <span><i style="background:var(--competitor)"></i>경쟁 및 파트너</span>
+      <span><i style="background:var(--government)"></i>정부/국가</span>
+      <span><i style="background:var(--agenda)"></i>AI 전방위 통합 아젠다</span>
+      <span><i style="background:var(--material)"></i>자료 (뉴스·아티클)</span>
     </div>
   </div>
 </section>
@@ -747,7 +733,6 @@
   </div>
 </div>
 
-<div id="gTooltip"></div>
 
 <script>
 /* ==================================================================
@@ -958,311 +943,150 @@ const MATERIALS = [
   {url:"https://app.notion.com/39beef5aeac1813f9532f43073e4f55e", name:"로보얀트, 오픈소스 VLA 모델 'LingBot-VLA 2.0' 공개", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392"}
 ];
 
-/* ---------- graph construction ---------- */
-const catAnchorOrder = ["company","tech","industry","competitor","government","agenda"];
-const W = 1600, H = 1000, CX = W/2, CY = H/2, ANCHOR_R = 330;
-const catAnchors = {};
-catAnchorOrder.forEach((c,i)=>{
-  const a = (Math.PI*2*i/catAnchorOrder.length) - Math.PI/2;
-  catAnchors[c] = {x: CX + Math.cos(a)*ANCHOR_R, y: CY + Math.sin(a)*ANCHOR_R};
-});
-
-const nodes = [];
-const nodeById = {};
-ENTITIES.forEach(e=>{
-  const n = {id:e.url, type:"entity", name:e.name, cat:e.cat, url:e.url, degree:0};
-  nodes.push(n); nodeById[n.id]=n;
-});
-MATERIALS.forEach(m=>{
-  const n = {id:m.url, type:"material", name:m.name, url:m.url, entity:m.entity, degree:0};
-  nodes.push(n); nodeById[n.id]=n;
-});
-
-const links = [];
-MATERIALS.forEach(m=>{
-  if(m.entity && nodeById[m.entity]){
-    links.push({source:m.url, target:m.entity});
-    nodeById[m.url].degree++;
-    nodeById[m.entity].degree++;
-  }
-});
-
-nodes.forEach(n=>{
-  if(n.type==="entity"){ n.r = Math.min(40, 15 + n.degree*7); }
-  else { n.r = 4.5 + n.degree*0.8; }
-});
-
-nodes.forEach(n=>{
-  let base;
-  if(n.type==="entity"){ base = catAnchors[n.cat]; }
-  else if(n.entity && catAnchors[nodeById[n.entity].cat]){ base = catAnchors[nodeById[n.entity].cat]; }
-  else { base = {x:CX, y:CY}; }
-  const jitter = 90;
-  n.x = base.x + (Math.random()-0.5)*jitter*2;
-  n.y = base.y + (Math.random()-0.5)*jitter*2;
-  n.vx = 0; n.vy = 0;
-});
-
-function simulate(steps){
-  for(let s=0; s<steps; s++){
-    const alpha = Math.max(0.02, 1 - s/steps);
-    for(let i=0;i<nodes.length;i++){
-      const a = nodes[i];
-      for(let j=i+1;j<nodes.length;j++){
-        const b = nodes[j];
-        let dx = a.x-b.x, dy = a.y-b.y;
-        let dist2 = dx*dx+dy*dy;
-        if(dist2 < 1) dist2 = 1;
-        const dist = Math.sqrt(dist2);
-        const minDist = a.r+b.r+18;
-        let force = (2600 / dist2) * alpha;
-        if(dist < minDist){ force += (minDist-dist)*0.06; }
-        const fx = (dx/dist)*force, fy=(dy/dist)*force;
-        a.vx += fx; a.vy += fy;
-        b.vx -= fx; b.vy -= fy;
-      }
-    }
-    links.forEach(l=>{
-      const a = nodeById[l.source], b = nodeById[l.target];
-      let dx=b.x-a.x, dy=b.y-a.y;
-      let dist = Math.sqrt(dx*dx+dy*dy)||1;
-      const target = a.r+b.r+50;
-      const force = (dist-target)*0.02*alpha*4;
-      const fx=(dx/dist)*force, fy=(dy/dist)*force;
-      a.vx += fx; a.vy += fy;
-      b.vx -= fx; b.vy -= fy;
-    });
-    nodes.forEach(n=>{
-      if(n.type==="entity"){
-        const anc = catAnchors[n.cat];
-        n.vx += (anc.x-n.x)*0.012*alpha;
-        n.vy += (anc.y-n.y)*0.012*alpha;
-      } else if(!n.entity){
-        n.vx += (CX-n.x)*0.006*alpha;
-        n.vy += (CY-n.y)*0.006*alpha;
-      }
-      n.vx += (CX-n.x)*0.0015*alpha;
-      n.vy += (CY-n.y)*0.0015*alpha;
-    });
-    nodes.forEach(n=>{
-      n.vx *= 0.82; n.vy *= 0.82;
-      n.x += n.vx; n.y += n.vy;
-    });
-  }
-}
-simulate(360);
-
-/* ---------- render ---------- */
-const svgNS = "http://www.w3.org/2000/svg";
-const gPanel = document.getElementById("graphPanel");
-const gsvg = document.createElementNS(svgNS,"svg");
-gsvg.setAttribute("id","graphSvg");
-gsvg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-gPanel.insertBefore(gsvg, gPanel.firstChild);
-
-const zoomGroup = document.createElementNS(svgNS,"g");
-gsvg.appendChild(zoomGroup);
-const linkGroup = document.createElementNS(svgNS,"g");
-const nodeGroup = document.createElementNS(svgNS,"g");
-zoomGroup.appendChild(linkGroup);
-zoomGroup.appendChild(nodeGroup);
-
-const linkEls = links.map(l=>{
-  const el = document.createElementNS(svgNS,"line");
-  el.setAttribute("class","link");
-  const a = nodeById[l.source], b = nodeById[l.target];
-  el.setAttribute("x1",a.x); el.setAttribute("y1",a.y);
-  el.setAttribute("x2",b.x); el.setAttribute("y2",b.y);
-  linkGroup.appendChild(el);
-  return {el, l};
-});
-
-const catColorVar = {
-  company:"var(--company)", tech:"var(--tech)", industry:"var(--industry)",
-  competitor:"var(--competitor)", government:"var(--government)", agenda:"var(--agenda)"
+/* ---------- vis-network 지식 그래프 ---------- */
+const CAT_COLOR = {
+  company:"#D4AF37", tech:"#FF5555", industry:"#7A5AF0",
+  competitor:"#E86BA8", government:"#F08C4A", agenda:"#B4A3F5"
 };
-
-const nodeEls = nodes.map(n=>{
-  const g = document.createElementNS(svgNS,"g");
-  g.setAttribute("class","node " + n.type);
-  g.setAttribute("transform", `translate(${n.x},${n.y})`);
-
-  const circle = document.createElementNS(svgNS,"circle");
-  circle.setAttribute("class","node-circle");
-  circle.setAttribute("r", n.r);
-  if(n.type==="entity"){
-    circle.setAttribute("fill", catColorVar[n.cat]);
-    circle.setAttribute("fill-opacity","0.88");
-    circle.setAttribute("stroke", catColorVar[n.cat]);
-    circle.setAttribute("stroke-width","1");
-  } else {
-    circle.setAttribute("fill", "var(--material)");
-    circle.setAttribute("fill-opacity","0.75");
-  }
-  g.appendChild(circle);
-
-  const label = document.createElementNS(svgNS,"text");
-  label.setAttribute("class","node-label");
-  label.setAttribute("text-anchor","middle");
-  label.setAttribute("y", -(n.r+7));
-  const shortName = n.type==="material" && n.name.length>22 ? n.name.slice(0,21)+"…" : n.name;
-  label.textContent = shortName;
-  g.appendChild(label);
-
-  const title = document.createElementNS(svgNS,"title");
-  title.textContent = n.name;
-  g.appendChild(title);
-
-  g.addEventListener("click", (ev)=>{
-    ev.stopPropagation();
-    window.open(n.url, "_blank", "noopener");
-  });
-  g.addEventListener("mouseenter", (ev)=> showTooltip(n, ev));
-  g.addEventListener("mousemove", (ev)=> moveTooltip(ev));
-  g.addEventListener("mouseleave", hideTooltip);
-
-  nodeGroup.appendChild(g);
-  return {el:g, n};
-});
-
-/* ---------- tooltip ---------- */
-const gTooltip = document.getElementById("gTooltip");
-const catLabelKo = {
+const CAT_LABEL = {
   company:"우리 회사 (LG그룹)", tech:"기반 기술", industry:"적용 산업",
   competitor:"경쟁 및 파트너", government:"정부/국가", agenda:"AI 전방위 통합 아젠다"
 };
-function showTooltip(n, ev){
-  gTooltip.style.display="block";
-  const catLine = n.type==="entity"
-    ? `<div class="tt-cat">${catLabelKo[n.cat]} · 연결 ${n.degree}개</div>`
-    : `<div class="tt-cat">자료${n.entity? " · " + (nodeById[n.entity]?nodeById[n.entity].name:"") : ""}</div>`;
-  gTooltip.innerHTML = `<div>${n.name}</div>${catLine}`;
-  moveTooltip(ev);
-}
-function moveTooltip(ev){
-  gTooltip.style.left = (ev.clientX+16)+"px";
-  gTooltip.style.top = (ev.clientY+14)+"px";
-}
-function hideTooltip(){ gTooltip.style.display="none"; }
+const GFONT = "-apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif";
 
-/* ---------- search ---------- */
-const gSearchInput = document.getElementById("gSearchInput");
-const gSearchCount = document.getElementById("gSearchCount");
-const gClearBtn = document.getElementById("gClearBtn");
+const entityByUrl = {}; ENTITIES.forEach(e=>entityByUrl[e.url]=e);
+const materialByUrl = {}; MATERIALS.forEach(m=>materialByUrl[m.url]=m);
+const degree = {};
+MATERIALS.forEach(m=>{ if(m.entity && entityByUrl[m.entity]) degree[m.entity]=(degree[m.entity]||0)+1; });
 
-function neighborsOf(id){
-  const set = new Set();
-  links.forEach(l=>{
-    if(l.source===id) set.add(l.target);
-    if(l.target===id) set.add(l.source);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+const gnodes = new vis.DataSet();
+const gedges = new vis.DataSet();
+
+ENTITIES.forEach(e=>{
+  const d = degree[e.url]||0;
+  gnodes.add({
+    id:e.url, label:e.name, shape:"dot",
+    size: 13 + d*4,
+    color: CAT_COLOR[e.cat],
+    font:{ color:"#241D42", size:13, face:GFONT },
+    title: e.name + " · " + CAT_LABEL[e.cat] + (d ? " · 자료 "+d+"개" : "")
   });
-  return set;
+});
+MATERIALS.forEach(m=>{
+  gnodes.add({
+    id:m.url, label: m.name.length>16 ? m.name.slice(0,15)+"…" : m.name,
+    shape:"dot", size:7,
+    color:"#A29BB8",
+    font:{ color:"#8C84A6", size:10.5, face:GFONT },
+    title: m.name
+  });
+  if(m.entity && entityByUrl[m.entity]) gedges.add({ from:m.url, to:m.entity });
+});
+
+const network = new vis.Network(document.getElementById("gnet"), { nodes:gnodes, edges:gedges }, {
+  nodes:{ borderWidth:0, font:{ face:GFONT } },
+  edges:{ color:{ color:"#D5CFE6", highlight:"#5332C9", opacity:0.9 }, smooth:false, width:1.2 },
+  physics:{
+    solver:"forceAtlas2Based",
+    forceAtlas2Based:{ gravitationalConstant:-48, springLength:110, springConstant:0.09, centralGravity:0.014, avoidOverlap:0.7 },
+    stabilization:{ iterations:250 }
+  },
+  interaction:{ hover:true, tooltipDelay:150 }
+});
+network.on("stabilizationIterationsDone", ()=> network.fit({ animation:false }));
+
+document.getElementById("gZoomIn").onclick  = ()=> network.moveTo({ scale: network.getScale()*1.35, animation:{duration:200} });
+document.getElementById("gZoomOut").onclick = ()=> network.moveTo({ scale: network.getScale()/1.35, animation:{duration:200} });
+document.getElementById("gFit").onclick     = ()=> network.fit({ animation:{duration:300} });
+
+let baseLook = {};
+function snapshotLook(){
+  baseLook = {};
+  gnodes.forEach(n => baseLook[n.id] = { color:n.color, font:{...n.font} });
+}
+snapshotLook();
+
+function highlight(nodeId){
+  const conn = new Set(network.getConnectedNodes(nodeId)); conn.add(nodeId);
+  gnodes.forEach(n=>{
+    const on = conn.has(n.id);
+    gnodes.update({ id:n.id,
+      color: on ? baseLook[n.id].color : "#E9E5F2",
+      font:{ ...baseLook[n.id].font, color: on ? "#1A1530" : "#C4BED6" },
+      opacity: on ? 1 : 0.35 });
+  });
+}
+function clearHighlight(){
+  gnodes.forEach(n=> gnodes.update({ id:n.id, color:baseLook[n.id].color, font:{...baseLook[n.id].font}, opacity:1 }));
 }
 
-function applyFilter(query){
-  const q = query.trim().toLowerCase();
-  gClearBtn.style.display = q ? "block" : "none";
-  if(!q){
-    nodeEls.forEach(({el})=>{ el.classList.remove("dim","highlight"); });
-    linkEls.forEach(({el})=>{ el.classList.remove("dim","highlight"); });
-    gSearchCount.textContent = "";
+const gpanel = document.getElementById("gpanel");
+const EMPTY_PANEL = '<div class="empty">노드를 클릭하면<br/>정보가 나타납니다.</div>';
+
+function notionBtn(url){
+  return `<button class="notion-btn" onclick="window.open('${url}','_blank','noopener')">노션에서 열기 →</button>`;
+}
+
+window.gFocusNode = id => {
+  if(!gnodes.get(id)) return;
+  network.focus(id, { scale:1.0, animation:{duration:400} });
+  network.selectNodes([id]);
+  showNode(id);
+};
+
+function showNode(id){
+  highlight(id);
+  const e = entityByUrl[id];
+  if(e){
+    const mats = network.getConnectedNodes(id).map(u=>materialByUrl[u]).filter(Boolean);
+    gpanel.innerHTML = `
+      <h4>${esc(e.name)}</h4>
+      <span class="cat-chip" style="background:${CAT_COLOR[e.cat]}">${CAT_LABEL[e.cat]}</span>
+      <div class="sub">연결된 자료 ${mats.length}개${mats.length ? " — 제목을 누르면 해당 노드로 이동합니다" : ""}</div>
+      ${mats.length ? `<div class="k">연결된 자료</div>
+      <div class="chiprow">${mats.map(m=>`<button class="chip" onclick="gFocusNode('${m.url}')">${esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`).join("")}</div>` : ""}
+      ${notionBtn(e.url)}`;
     return;
   }
-  const matched = new Set();
-  nodes.forEach(n=>{ if(n.name.toLowerCase().includes(q)) matched.add(n.id); });
-
-  const active = new Set(matched);
-  matched.forEach(id=>{ neighborsOf(id).forEach(nb=>active.add(nb)); });
-
-  nodeEls.forEach(({el,n})=>{
-    if(active.has(n.id)){
-      el.classList.remove("dim");
-      el.classList.toggle("highlight", matched.has(n.id));
-    } else {
-      el.classList.add("dim");
-      el.classList.remove("highlight");
-    }
-  });
-  linkEls.forEach(({el,l})=>{
-    const on = active.has(l.source) && active.has(l.target);
-    el.classList.toggle("dim", !on);
-    el.classList.toggle("highlight", matched.has(l.source)||matched.has(l.target));
-  });
-  gSearchCount.textContent = matched.size ? `${matched.size}개 일치` : "일치 없음";
+  const m = materialByUrl[id];
+  if(m){
+    const ent = m.entity ? entityByUrl[m.entity] : null;
+    gpanel.innerHTML = `
+      <h4>${esc(m.name)}</h4>
+      <div class="sub">자료 · 뉴스/아티클</div>
+      ${ent ? `<div class="k">분야</div>
+      <div class="chiprow"><button class="chip" onclick="gFocusNode('${ent.url}')">${esc(ent.name)}</button></div>` : ""}
+      ${notionBtn(m.url)}`;
+  }
 }
 
-gSearchInput.addEventListener("input", ()=> applyFilter(gSearchInput.value));
-gClearBtn.addEventListener("click", ()=>{ gSearchInput.value=""; applyFilter(""); gSearchInput.focus(); });
-
-/* ---------- legend category filter ---------- */
-document.querySelectorAll("#gLegend .lg-row").forEach(row=>{
-  row.addEventListener("click", ()=>{
-    const cat = row.dataset.cat;
-    const isActive = row.classList.contains("active");
-    document.querySelectorAll("#gLegend .lg-row").forEach(r=>r.classList.remove("active","dim"));
-    if(isActive){
-      nodeEls.forEach(({el})=> el.classList.remove("dim","highlight"));
-      linkEls.forEach(({el})=> el.classList.remove("dim","highlight"));
-      return;
-    }
-    row.classList.add("active");
-    document.querySelectorAll("#gLegend .lg-row").forEach(r=>{ if(r!==row) r.classList.add("dim"); });
-
-    const activeIds = new Set();
-    nodes.forEach(n=>{
-      const match = cat==="material" ? n.type==="material" : (n.type==="entity" && n.cat===cat);
-      if(match) activeIds.add(n.id);
-    });
-    if(cat!=="material"){
-      links.forEach(l=>{
-        if(activeIds.has(l.source)) activeIds.add(l.target);
-        if(activeIds.has(l.target)) activeIds.add(l.source);
-      });
-    }
-    nodeEls.forEach(({el,n})=>{
-      el.classList.toggle("dim", !activeIds.has(n.id));
-      el.classList.toggle("highlight", n.type==="entity" && n.cat===cat);
-    });
-    linkEls.forEach(({el,l})=>{
-      el.classList.toggle("dim", !(activeIds.has(l.source)&&activeIds.has(l.target)));
-    });
-  });
+network.on("click", params=>{
+  const id = params.nodes[0];
+  if(!id){ clearHighlight(); network.unselectAll(); gpanel.innerHTML = EMPTY_PANEL; return; }
+  showNode(id);
+});
+network.on("doubleClick", params=>{
+  const id = params.nodes[0];
+  if(id) window.open(id, "_blank", "noopener");
 });
 
-/* ---------- pan / zoom ---------- */
-let viewX=0, viewY=0, viewScale=1;
-let isPanning=false, panStart={x:0,y:0}, viewStart={x:0,y:0};
-
-function updateTransform(){
-  zoomGroup.setAttribute("transform", `translate(${viewX},${viewY}) scale(${viewScale})`);
+/* ---------- 검색 ---------- */
+const gq = document.getElementById("gq");
+const gCount = document.getElementById("gCount");
+function graphSearch(){
+  const q = gq.value.trim().toLowerCase();
+  if(!q){ gCount.textContent=""; clearHighlight(); network.unselectAll(); gpanel.innerHTML = EMPTY_PANEL; return; }
+  const hits = [];
+  ENTITIES.forEach(e=>{ if(e.name.toLowerCase().includes(q)) hits.push(e.url); });
+  MATERIALS.forEach(m=>{ if(m.name.toLowerCase().includes(q)) hits.push(m.url); });
+  if(!hits.length){ gCount.textContent = "일치 없음"; return; }
+  gCount.textContent = hits.length + "개 일치";
+  gFocusNode(hits[0]);
 }
-
-gsvg.addEventListener("mousedown",(e)=>{
-  isPanning = true;
-  panStart = {x:e.clientX, y:e.clientY};
-  viewStart = {x:viewX, y:viewY};
-});
-window.addEventListener("mousemove",(e)=>{
-  if(!isPanning) return;
-  viewX = viewStart.x + (e.clientX-panStart.x);
-  viewY = viewStart.y + (e.clientY-panStart.y);
-  updateTransform();
-});
-window.addEventListener("mouseup", ()=> isPanning=false);
-
-gsvg.addEventListener("wheel",(e)=>{
-  e.preventDefault();
-  const rect = gsvg.getBoundingClientRect();
-  const mx = e.clientX-rect.left, my = e.clientY-rect.top;
-  const prevScale = viewScale;
-  const delta = -e.deltaY*0.0016;
-  viewScale = Math.min(4, Math.max(0.35, viewScale*(1+delta)));
-  viewX = mx - (mx-viewX)*(viewScale/prevScale);
-  viewY = my - (my-viewY)*(viewScale/prevScale);
-  updateTransform();
-},{passive:false});
-
-updateTransform();
+document.getElementById("gqGo").addEventListener("click", graphSearch);
+gq.addEventListener("keydown", e=>{ if(e.key==="Enter") graphSearch(); });
 </script>
 </body>
 </html>
