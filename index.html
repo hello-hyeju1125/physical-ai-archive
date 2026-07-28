@@ -1041,24 +1041,36 @@ window.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeModal(); });
    NEWS  (from the Notion archive — click opens the Notion page)
 ================================================================== */
 const NEWS = [
-  {url:"https://app.notion.com/39beef5aeac1812298e4df8bd1395a23", date:"2026-07-11", chip:"AI",
-   title:"앤트그룹 로보얀트, 인과적 비디오-액션 모델 'LingBot-VA 2.0' 공개"},
-  {url:"https://app.notion.com/39beef5aeac1813f9532f43073e4f55e", date:"2026-07-08", chip:"AI",
-   title:"로보얀트, 오픈소스 VLA 모델 'LingBot-VLA 2.0' 공개"},
-  {url:"https://app.notion.com/39beef5aeac181feba43ddf950b6b323", date:"2026-07-08", chip:"AI",
-   title:"포춘: 'Physical AI'—50조 달러 기회와 에너지·하드웨어 병목"},
-  {url:"https://app.notion.com/39beef5aeac1812caeade2a86b77ab17", date:"2026-07-07", chip:"AI",
-   title:"중국, 올해 휴머노이드 로봇 생산 10만 대 돌파 전망…AI 핵심산업 230조원"},
-  {url:"https://app.notion.com/39beef5aeac181378740d749f60609d1", date:"2026-07-07", chip:"AI",
-   title:"엔비디아·허깅페이스, 휴머노이드 VLA 모델 'Isaac GR00T 1.7'을 오픈소스 LeRobot에 통합"},
-  {url:"https://app.notion.com/39beef5aeac181f29966c405f7dc65ea", date:"2026-07-05", chip:"AI",
-   title:"RoboCup 2026, 인천서 사상 첫 11대11 휴머노이드 로봇 축구 경기 개최"},
-  {url:"https://app.notion.com/382eef5aeac1802c9048c4c337fce368", date:"2026-06-17", chip:"도서",
-   title:"3. 만능 몸을 가진 로봇 두뇌"},
-  {url:"https://app.notion.com/382eef5aeac1809db3dfd6a45b0e9cbe", date:"2026-06-17", chip:"유튜브",
-   title:"2. One Model, Any Scenario"},
-  {url:"https://app.notion.com/382eef5aeac180b0ae4fd8970b243ef0", date:"2026-06-17", chip:"AI",
-   title:"1. Skild AI의 모든 것"}
+  {url:"https://app.notion.com/3abeef5aeac1812bb341e9b984532ab0", date:"2026-07-23", chip:"AI", title:"머스크 \"옵티머스는 역사상 최대 제품이 될 것 — 최대 라이벌은 중국\""},
+  {url:"https://app.notion.com/3abeef5aeac18185939bfdff65b579c3", date:"2026-07-22", chip:"웹사이트", title:"트럼프 행정부, 'Genesis Mission'에 50억 달러+ — 로봇 자율 실험실 구축"},
+  {url:"https://app.notion.com/3abeef5aeac1815c8078e0c339e742ec", date:"2026-07-16", chip:"AI", title:"엔비디아, 도쿄서 Jetson T3000·T2000 공개 — 엣지 로봇 컴퓨팅 확장"},
+  {url:"https://app.notion.com/39beef5aeac1812298e4df8bd1395a23", date:"2026-07-11", chip:"AI", title:"앤트그룹 로보얀트, 인과적 비디오-액션 모델 'LingBot-VA 2.0' 공개"},
+  {url:"https://app.notion.com/39beef5aeac1813f9532f43073e4f55e", date:"2026-07-08", chip:"AI", title:"로보얀트, 오픈소스 VLA 모델 'LingBot-VLA 2.0' 공개"},
+  {url:"https://app.notion.com/39beef5aeac181feba43ddf950b6b323", date:"2026-07-08", chip:"AI", title:"포춘: 'Physical AI'—50조 달러 기회와 에너지·하드웨어 병목"},
+  {url:"https://app.notion.com/39beef5aeac1812caeade2a86b77ab17", date:"2026-07-07", chip:"AI", title:"중국, 올해 휴머노이드 로봇 생산 10만 대 돌파 전망…AI 핵심산업 230조원"},
+  {url:"https://app.notion.com/39beef5aeac181378740d749f60609d1", date:"2026-07-07", chip:"AI", title:"엔비디아·허깅페이스, 휴머노이드 VLA 모델 'Isaac GR00T 1.7'을 오픈소스 LeRobot에 통합"},
+  {url:"https://app.notion.com/39beef5aeac181f29966c405f7dc65ea", date:"2026-07-05", chip:"AI", title:"RoboCup 2026, 인천서 사상 첫 11대11 휴머노이드 로봇 축구 경기 개최"},
+  {url:"https://app.notion.com/3abeef5aeac181d4b2cbc7093391c2f9", date:"2026-06-24", chip:"AI", title:"모건스탠리, 중국 휴머노이드 출하 전망 2배 상향 — \"상업화 가속\""},
+  {url:"https://app.notion.com/3abeef5aeac181fda883c1a3e05b370a", date:"2026-06-18", chip:"웹사이트", title:"ITIF \"미국엔 국가 로봇 전략이 없다\" — 로봇 수출 점유율 5.4% 불과"},
+  {url:"https://app.notion.com/382eef5aeac1802c9048c4c337fce368", date:"2026-06-17", chip:"도서", title:"3. 만능 몸을 가진 로봇 두뇌"},
+  {url:"https://app.notion.com/382eef5aeac1809db3dfd6a45b0e9cbe", date:"2026-06-17", chip:"유튜브", title:"2. One Model, Any Scenario"},
+  {url:"https://app.notion.com/382eef5aeac180b0ae4fd8970b243ef0", date:"2026-06-17", chip:"AI", title:"1. Skild AI의 모든 것"},
+  {url:"https://app.notion.com/3abeef5aeac1813eb6bce937a025c686", date:"2026-06-03", chip:"웹사이트", title:"페이페이 리, '월드 모델' 3분류 제시 — 렌더러·시뮬레이터·플래너"},
+  {url:"https://app.notion.com/3abeef5aeac1819c942ad2b94a1c985f", date:"2026-06-02", chip:"AI", title:"오픈AI, 로봇 하드웨어 직접 제조로 선회 — 사내 로보틱스 부문 확대"},
+  {url:"https://app.notion.com/3abeef5aeac181868b38dde4ce62ff5d", date:"2026-05-22", chip:"AI", title:"현대차그룹, 자사 공장에 아틀라스 2.5만 대 투입 계획 — 노조는 고용 협약 요구"},
+  {url:"https://app.notion.com/3abeef5aeac181108c97c26f197dd987", date:"2026-05-01", chip:"AI", title:"피겨 AI, 휴머노이드 시간당 1대 생산 돌입 — 4개월 만에 24배 램프업"},
+  {url:"https://app.notion.com/3abeef5aeac181958236d1acd0e008ed", date:"2026-04-22", chip:"AI", title:"테슬라, 프리몬트 모델 S·X 라인을 옵티머스 라인으로 전환"},
+  {url:"https://app.notion.com/3abeef5aeac1812abc54f691baec1101", date:"2026-04-01", chip:"웹사이트", title:"어질리티 '디짓', 상업 매출 내는 유일한 휴머노이드 — GXO 창고 토트 10만 개 운반"},
+  {url:"https://app.notion.com/3abeef5aeac18143a16cdbc54958e4a0", date:"2026-03-18", chip:"AI", title:"엔비디아, GTC 2026서 'Physical AI 빅뱅' 선언 — 로봇 110대 시연"},
+  {url:"https://app.notion.com/3abeef5aeac181c9abe5d3879a3a7313", date:"2026-02-18", chip:"AI", title:"월드랩스, 10억 달러 조달 — AMD·엔비디아 참여, 누적 12.3억 달러"},
+  {url:"https://app.notion.com/3abeef5aeac181119bf1e85a5f2b99c6", date:"2026-02-11", chip:"AI", title:"앱트로닉, 5.2억 달러 시리즈A 추가 조달 — 구글·메르세데스·존디어 투자"},
+  {url:"https://app.notion.com/3abeef5aeac181a68740d30ec7fee443", date:"2026-01-14", chip:"AI", title:"스킬드 AI, 소프트뱅크 주도 14억 달러 조달 — LG·삼성 참여, 기업가치 140억 달러+"},
+  {url:"https://app.notion.com/3abeef5aeac181b38974f6128d618381", date:"2026-01-06", chip:"AI", title:"보스턴 다이내믹스, 양산형 아틀라스 공개 — 2026년 물량 완판"},
+  {url:"https://app.notion.com/3abeef5aeac181c2910bd7f4bf383281", date:"2025-10-21", chip:"AI", title:"아마존, 창고 로봇 100만 대 돌파 — 2033년까지 60만 명 채용 대체 검토"},
+  {url:"https://app.notion.com/3abeef5aeac181c4a44cdcfeece724a7", date:"2025-09-16", chip:"AI", title:"피겨 AI, 기업가치 390억 달러로 10억 달러+ 시리즈C 조달"},
+  {url:"https://app.notion.com/3abeef5aeac181a7bf1ad23fd338b29b", date:"2025-07-23", chip:"웹사이트", title:"백악관 'AI 액션 플랜' — 로봇·드론 제조 공급망 민관 파트너십 명시"},
+  {url:"https://app.notion.com/3abeef5aeac181f09589c5937204571d", date:"2025-04-30", chip:"웹사이트", title:"모건스탠리 \"2050년 휴머노이드 시장 5조 달러 — 10억 대 가동\""},
+  {url:"https://app.notion.com/3abeef5aeac181e9a958e4b210d8f316", date:"2024-02-25", chip:"웹사이트", title:"골드만삭스 \"2035년 글로벌 휴머노이드 시장 380억 달러\""}
 ];
 
 const newsList = document.getElementById("newsList");
@@ -1152,15 +1164,36 @@ const ENTITIES = [
 ];
 
 const MATERIALS = [
-  {url:"https://app.notion.com/382eef5aeac1802c9048c4c337fce368", name:"3. 만능 몸을 가진 로봇 두뇌", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", imp:false, tags:["휴머노이드","파운데이션모델"]},
-  {url:"https://app.notion.com/382eef5aeac1809db3dfd6a45b0e9cbe", name:"2. One Model, Any Scenario", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", imp:false, tags:["파운데이션모델","휴머노이드"]},
-  {url:"https://app.notion.com/382eef5aeac180b0ae4fd8970b243ef0", name:"1. Skild AI의 모든 것", entity:"https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", imp:false, tags:["파운데이션모델","투자·펀딩"]},
-  {url:"https://app.notion.com/39beef5aeac181378740d749f60609d1", name:"엔비디아·허깅페이스, 휴머노이드 VLA 모델 'Isaac GR00T 1.7'을 오픈소스 LeRobot에 통합", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392", imp:false, tags:["휴머노이드","VLA","오픈소스"]},
-  {url:"https://app.notion.com/39beef5aeac181f29966c405f7dc65ea", name:"RoboCup 2026, 인천서 사상 첫 11대11 휴머노이드 로봇 축구 경기 개최", entity:null, imp:false, tags:["휴머노이드"]},
-  {url:"https://app.notion.com/39beef5aeac181feba43ddf950b6b323", name:"포춘: 'Physical AI'—50조 달러 기회와 에너지·하드웨어 병목", entity:"https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276", imp:false, tags:["투자·펀딩","비용·수익성"]},
-  {url:"https://app.notion.com/39beef5aeac1812298e4df8bd1395a23", name:"앤트그룹 로보얀트, 인과적 비디오-액션 모델 'LingBot-VA 2.0' 공개", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392", imp:false, tags:["VLA"]},
-  {url:"https://app.notion.com/39beef5aeac1812caeade2a86b77ab17", name:"중국, 올해 휴머노이드 로봇 생산 10만 대 돌파 전망…AI 핵심산업 230조원", entity:"https://app.notion.com/382eef5aeac181399d94f122cb58c134", imp:false, tags:["휴머노이드","정부정책","상용화·양산"]},
-  {url:"https://app.notion.com/39beef5aeac1813f9532f43073e4f55e", name:"로보얀트, 오픈소스 VLA 모델 'LingBot-VLA 2.0' 공개", entity:"https://app.notion.com/382eef5aeac1811abf90d96575c6d392", imp:false, tags:["VLA","오픈소스"]}
+  {url:"https://app.notion.com/3abeef5aeac1812bb341e9b984532ab0", name:"머스크 \"옵티머스는 역사상 최대 제품이 될 것 — 최대 라이벌은 중국\"", entities:["https://app.notion.com/382eef5aeac181a0a5a2eacadc3d6035", "https://app.notion.com/388eef5aeac180fab466c58714b723ba", "https://app.notion.com/388eef5aeac180929d49ff9cd677b583"], imp:false, tags:["휴머노이드"]},
+  {url:"https://app.notion.com/3abeef5aeac18185939bfdff65b579c3", name:"트럼프 행정부, 'Genesis Mission'에 50억 달러+ — 로봇 자율 실험실 구축", entities:["https://app.notion.com/382eef5aeac1802ca211c421b7eeec09", "https://app.notion.com/382eef5aeac18158a06ace5c93415f3d", "https://app.notion.com/382eef5aeac18179911aff087de480d3", "https://app.notion.com/388eef5aeac180c59f87f44ce02e64b6", "https://app.notion.com/388eef5aeac18034935cef46ec7ff07e"], imp:false, tags:["정부정책", "데이터·학습"]},
+  {url:"https://app.notion.com/3abeef5aeac1815c8078e0c339e742ec", name:"엔비디아, 도쿄서 Jetson T3000·T2000 공개 — 엣지 로봇 컴퓨팅 확장", entities:["https://app.notion.com/382eef5aeac1801aa04dcbf2e1cc079a", "https://app.notion.com/382eef5aeac18194aa7cdb0b37e6f5d6", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d"], imp:false, tags:["온디바이스AI", "휴머노이드"]},
+  {url:"https://app.notion.com/39beef5aeac1812298e4df8bd1395a23", name:"앤트그룹 로보얀트, 인과적 비디오-액션 모델 'LingBot-VA 2.0' 공개", entities:["https://app.notion.com/382eef5aeac1811abf90d96575c6d392", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d"], imp:false, tags:["VLA"]},
+  {url:"https://app.notion.com/39beef5aeac1813f9532f43073e4f55e", name:"로보얀트, 오픈소스 VLA 모델 'LingBot-VLA 2.0' 공개", entities:["https://app.notion.com/382eef5aeac1811abf90d96575c6d392", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d"], imp:false, tags:["VLA", "오픈소스"]},
+  {url:"https://app.notion.com/39beef5aeac181feba43ddf950b6b323", name:"포춘: 'Physical AI'—50조 달러 기회와 에너지·하드웨어 병목", entities:["https://app.notion.com/382eef5aeac181afbdcec11a3b2e41d2", "https://app.notion.com/382eef5aeac18158a06ace5c93415f3d", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"], imp:false, tags:["투자·펀딩", "비용·수익성"]},
+  {url:"https://app.notion.com/39beef5aeac1812caeade2a86b77ab17", name:"중국, 올해 휴머노이드 로봇 생산 10만 대 돌파 전망…AI 핵심산업 230조원", entities:["https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/382eef5aeac181399d94f122cb58c134", "https://app.notion.com/388eef5aeac180929d49ff9cd677b583"], imp:false, tags:["휴머노이드", "정부정책", "상용화·양산"]},
+  {url:"https://app.notion.com/39beef5aeac181378740d749f60609d1", name:"엔비디아·허깅페이스, 휴머노이드 VLA 모델 'Isaac GR00T 1.7'을 오픈소스 LeRobot에 통합", entities:["https://app.notion.com/382eef5aeac1811abf90d96575c6d392", "https://app.notion.com/382eef5aeac1801aa04dcbf2e1cc079a", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d"], imp:false, tags:["휴머노이드", "VLA", "오픈소스"]},
+  {url:"https://app.notion.com/39beef5aeac181f29966c405f7dc65ea", name:"RoboCup 2026, 인천서 사상 첫 11대11 휴머노이드 로봇 축구 경기 개최", entities:["https://app.notion.com/388eef5aeac1801b8b4dc7c2541b4c25"], imp:false, tags:["휴머노이드"]},
+  {url:"https://app.notion.com/3abeef5aeac181d4b2cbc7093391c2f9", name:"모건스탠리, 중국 휴머노이드 출하 전망 2배 상향 — \"상업화 가속\"", entities:["https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/382eef5aeac181399d94f122cb58c134", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276", "https://app.notion.com/388eef5aeac180929d49ff9cd677b583"], imp:false, tags:["휴머노이드", "비용·수익성", "상용화·양산"]},
+  {url:"https://app.notion.com/3abeef5aeac181fda883c1a3e05b370a", name:"ITIF \"미국엔 국가 로봇 전략이 없다\" — 로봇 수출 점유율 5.4% 불과", entities:["https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/382eef5aeac18179911aff087de480d3", "https://app.notion.com/388eef5aeac180929d49ff9cd677b583"], imp:false, tags:["정부정책", "표준·생태계"]},
+  {url:"https://app.notion.com/382eef5aeac1802c9048c4c337fce368", name:"3. 만능 몸을 가진 로봇 두뇌", entities:["https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d"], imp:false, tags:["휴머노이드", "파운데이션모델"]},
+  {url:"https://app.notion.com/382eef5aeac1809db3dfd6a45b0e9cbe", name:"2. One Model, Any Scenario", entities:["https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d"], imp:false, tags:["파운데이션모델", "휴머노이드"]},
+  {url:"https://app.notion.com/382eef5aeac180b0ae4fd8970b243ef0", name:"1. Skild AI의 모든 것", entities:["https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"], imp:false, tags:["파운데이션모델", "투자·펀딩"]},
+  {url:"https://app.notion.com/3abeef5aeac1813eb6bce937a025c686", name:"페이페이 리, '월드 모델' 3분류 제시 — 렌더러·시뮬레이터·플래너", entities:["https://app.notion.com/382eef5aeac1811abf90d96575c6d392", "https://app.notion.com/388eef5aeac18034935cef46ec7ff07e"], imp:false, tags:["파운데이션모델", "시뮬레이션·디지털트윈"]},
+  {url:"https://app.notion.com/3abeef5aeac1819c942ad2b94a1c985f", name:"오픈AI, 로봇 하드웨어 직접 제조로 선회 — 사내 로보틱스 부문 확대", entities:["https://app.notion.com/382eef5aeac1811abf90d96575c6d392", "https://app.notion.com/388eef5aeac180fab466c58714b723ba", "https://app.notion.com/388eef5aeac180f092c9f4f7a615e9f2"], imp:false, tags:["휴머노이드", "인재·조직"]},
+  {url:"https://app.notion.com/3abeef5aeac181868b38dde4ce62ff5d", name:"현대차그룹, 자사 공장에 아틀라스 2.5만 대 투입 계획 — 노조는 고용 협약 요구", entities:["https://app.notion.com/382eef5aeac18144801af9db4fe39d8c", "https://app.notion.com/382eef5aeac1812c91c1e289cf2eadd7", "https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/388eef5aeac180f092c9f4f7a615e9f2"], imp:false, tags:["휴머노이드", "인재·조직", "상용화·양산"]},
+  {url:"https://app.notion.com/3abeef5aeac181108c97c26f197dd987", name:"피겨 AI, 휴머노이드 시간당 1대 생산 돌입 — 4개월 만에 24배 램프업", entities:["https://app.notion.com/382eef5aeac18034a102fdbbf7f86a86", "https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/388eef5aeac180fab466c58714b723ba"], imp:false, tags:["휴머노이드", "상용화·양산"]},
+  {url:"https://app.notion.com/3abeef5aeac181958236d1acd0e008ed", name:"테슬라, 프리몬트 모델 S·X 라인을 옵티머스 라인으로 전환", entities:["https://app.notion.com/382eef5aeac181a0a5a2eacadc3d6035", "https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/388eef5aeac180fab466c58714b723ba"], imp:false, tags:["휴머노이드", "상용화·양산"]},
+  {url:"https://app.notion.com/3abeef5aeac1812abc54f691baec1101", name:"어질리티 '디짓', 상업 매출 내는 유일한 휴머노이드 — GXO 창고 토트 10만 개 운반", entities:["https://app.notion.com/382eef5aeac181edb4c6f742a55b8a78", "https://app.notion.com/388eef5aeac180fab466c58714b723ba"], imp:false, tags:["휴머노이드", "상용화·양산", "비용·수익성"]},
+  {url:"https://app.notion.com/3abeef5aeac18143a16cdbc54958e4a0", name:"엔비디아, GTC 2026서 'Physical AI 빅뱅' 선언 — 로봇 110대 시연", entities:["https://app.notion.com/382eef5aeac1811abf90d96575c6d392", "https://app.notion.com/382eef5aeac1801aa04dcbf2e1cc079a", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d", "https://app.notion.com/388eef5aeac180fab466c58714b723ba"], imp:true, tags:["파운데이션모델", "시뮬레이션·디지털트윈", "휴머노이드"]},
+  {url:"https://app.notion.com/3abeef5aeac181c9abe5d3879a3a7313", name:"월드랩스, 10억 달러 조달 — AMD·엔비디아 참여, 누적 12.3억 달러", entities:["https://app.notion.com/382eef5aeac1811abf90d96575c6d392", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"], imp:false, tags:["투자·펀딩", "시뮬레이션·디지털트윈"]},
+  {url:"https://app.notion.com/3abeef5aeac181119bf1e85a5f2b99c6", name:"앱트로닉, 5.2억 달러 시리즈A 추가 조달 — 구글·메르세데스·존디어 투자", entities:["https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/390eef5aeac18009a46cecf8a83c445e", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"], imp:false, tags:["휴머노이드", "투자·펀딩", "상용화·양산"]},
+  {url:"https://app.notion.com/3abeef5aeac181a68740d30ec7fee443", name:"스킬드 AI, 소프트뱅크 주도 14억 달러 조달 — LG·삼성 참여, 기업가치 140억 달러+", entities:["https://app.notion.com/382eef5aeac180ef95c7cfd69cb2298c", "https://app.notion.com/382eef5aeac1811abf90d96575c6d392", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d"], imp:true, tags:["파운데이션모델", "투자·펀딩"]},
+  {url:"https://app.notion.com/3abeef5aeac181b38974f6128d618381", name:"보스턴 다이내믹스, 양산형 아틀라스 공개 — 2026년 물량 완판", entities:["https://app.notion.com/382eef5aeac18144801af9db4fe39d8c", "https://app.notion.com/390eef5aeac18009a46cecf8a83c445e", "https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/388eef5aeac180fab466c58714b723ba", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d"], imp:false, tags:["휴머노이드", "상용화·양산", "M&A·제휴"]},
+  {url:"https://app.notion.com/3abeef5aeac181c2910bd7f4bf383281", name:"아마존, 창고 로봇 100만 대 돌파 — 2033년까지 60만 명 채용 대체 검토", entities:["https://app.notion.com/382eef5aeac181edb4c6f742a55b8a78", "https://app.notion.com/388eef5aeac180f092c9f4f7a615e9f2", "https://app.notion.com/388eef5aeac180fab466c58714b723ba"], imp:false, tags:["인재·조직", "상용화·양산"]},
+  {url:"https://app.notion.com/3abeef5aeac181c4a44cdcfeece724a7", name:"피겨 AI, 기업가치 390억 달러로 10억 달러+ 시리즈C 조달", entities:["https://app.notion.com/382eef5aeac18034a102fdbbf7f86a86", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"], imp:false, tags:["투자·펀딩", "휴머노이드"]},
+  {url:"https://app.notion.com/3abeef5aeac181a7bf1ad23fd338b29b", name:"백악관 'AI 액션 플랜' — 로봇·드론 제조 공급망 민관 파트너십 명시", entities:["https://app.notion.com/382eef5aeac1802ca211c421b7eeec09", "https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/382eef5aeac18179911aff087de480d3", "https://app.notion.com/388eef5aeac180929d49ff9cd677b583", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d"], imp:true, tags:["정부정책", "수출통제·규제"]},
+  {url:"https://app.notion.com/3abeef5aeac181f09589c5937204571d", name:"모건스탠리 \"2050년 휴머노이드 시장 5조 달러 — 10억 대 가동\"", entities:["https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/382eef5aeac180758254e3ac9b49ed22", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"], imp:true, tags:["휴머노이드", "투자·펀딩", "비용·수익성"]},
+  {url:"https://app.notion.com/3abeef5aeac181e9a958e4b210d8f316", name:"골드만삭스 \"2035년 글로벌 휴머노이드 시장 380억 달러\"", entities:["https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"], imp:false, tags:["휴머노이드", "비용·수익성"]}
 ];
 
 /* ---------- vis-network 지식 그래프 ---------- */
@@ -1177,7 +1210,7 @@ const GFONT = "'S-CoreDream', -apple-system, 'Apple SD Gothic Neo', 'Malgun Goth
 const entityByUrl = {}; ENTITIES.forEach(e=>entityByUrl[e.url]=e);
 const materialByUrl = {}; MATERIALS.forEach(m=>materialByUrl[m.url]=m);
 const degree = {};
-MATERIALS.forEach(m=>{ if(m.entity && entityByUrl[m.entity]) degree[m.entity]=(degree[m.entity]||0)+1; });
+MATERIALS.forEach(m=> (m.entities||[]).forEach(u=>{ if(entityByUrl[u]) degree[u]=(degree[u]||0)+1; }));
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const agendaShort = n => n==="기타" ? "기타" : (n.split(" - ")[1]||n).replace(/ 및 /g,"·");
@@ -1194,7 +1227,7 @@ ENTITIES.forEach(e=>{
     id:e.url,
     label: isAgenda ? agendaShort(e.name) : e.name,
     shape: isAgenda ? "hexagon" : (isGov ? "square" : "dot"),
-    size: (isAgenda ? 16 : 13) + d*4,
+    size: Math.min(36, (isAgenda ? 16 : 13) + d*2.5),
     color: CAT_COLOR[e.cat],
     font:{ color:"#241D42", size: isAgenda ? 12.5 : 13, face:GFONT },
     title: e.name + " · " + CAT_LABEL[e.cat] + (d ? " · 자료 "+d+"개" : "")
@@ -1209,7 +1242,7 @@ MATERIALS.forEach(m=>{
     font:{ color:"#6E6690", size:10.5, face:GFONT },
     title: (m.imp ? "★ " : "") + m.name
   });
-  if(m.entity && entityByUrl[m.entity]) gedges.add({ from:m.url, to:m.entity });
+  (m.entities||[]).forEach(u=>{ if(entityByUrl[u]) gedges.add({ from:m.url, to:u }); });
 });
 
 const network = new vis.Network(document.getElementById("gnet"), { nodes:gnodes, edges:gedges }, {
@@ -1294,12 +1327,12 @@ function showNode(id){
   }
   const m = materialByUrl[id];
   if(m){
-    const ent = m.entity ? entityByUrl[m.entity] : null;
+    const ents2 = (m.entities||[]).map(u=>entityByUrl[u]).filter(Boolean);
     gpanel.innerHTML = `
       <h4>${m.imp ? "★ " : ""}${esc(m.name)}</h4>
       <div class="sub">자료 · 뉴스/아티클</div>
-      ${ent ? `<div class="k">분야</div>
-      <div class="chiprow"><button class="chip" onclick="gFocusNode('${ent.url}')">${esc(ent.name)}</button></div>` : ""}
+      ${ents2.length ? `<div class="k">분야 · 아젠다</div>
+      <div class="chiprow">${ents2.map(e2=>`<button class="chip" onclick="gFocusNode('${e2.url}')">${esc(e2.name)}</button>`).join("")}</div>` : ""}
       ${m.tags && m.tags.length ? `<div class="k">태그</div>
       <div class="chiprow">${m.tags.map(t=>`<button class="chip" onclick="gTagLens('${t}')">#${esc(t)}</button>`).join("")}</div>` : ""}
       ${notionBtn(m.url)}`;
