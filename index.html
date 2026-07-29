@@ -462,7 +462,7 @@
   }
   .graph-shell{
     position:relative; margin-top:26px;
-    display:grid; grid-template-columns:minmax(0,1fr) 460px; grid-template-rows:minmax(0,1fr);
+    display:grid; grid-template-columns:minmax(200px,1fr) minmax(0,920px); grid-template-rows:minmax(0,1fr);
     height:620px;
     background:var(--panel); border:1px solid var(--panel-border);
     border-radius:20px; overflow:hidden;
@@ -521,7 +521,8 @@
   .gtag:hover{background:rgba(255,255,255,0.2);}
   .gtag.on{background:#FFFFFF; color:#1A4531; border-color:#FFFFFF;}
   .gtag.on span{opacity:0.6;}
-  @media (max-width:900px){
+  /* 좁은 화면에서만 위아래로 쌓기 (노션 임베드 폭에서는 좌우 분할 유지) */
+  @media (max-width:640px){
     .graph-shell{grid-template-columns:1fr; grid-template-rows:440px auto; height:auto;}
     #gnet{height:440px;}
     #gpanel{border-left:none; border-top:1px solid var(--panel-border); max-height:320px;}
