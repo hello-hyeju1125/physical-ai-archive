@@ -547,8 +547,8 @@
   #gpanel .gtag.on span{opacity:0.75;}
   /* 좁은 화면에서만 위아래로 쌓기 (노션 임베드 폭에서는 좌우 분할 유지) */
   @media (max-width:640px){
-    .graph-shell{grid-template-columns:1fr; grid-template-rows:440px auto; height:auto;}
-    #gnet{height:440px;}
+    .graph-shell{grid-template-columns:1fr; grid-template-rows:300px auto; height:auto;}
+    #gnet{height:300px;}
     #gpanel{border-left:none; border-top:1px solid var(--panel-border); max-height:360px;}
     /* 좁은 화면: 태그는 한 줄 가로 스크롤, 범례는 숨김 */
     #gpanel > .gtags{
@@ -674,7 +674,7 @@ html, body { margin:0; padding:0; height:100%; overflow:hidden; background:#0713
   /* 그래프 위 / 정보 패널 아래로 나누고, 남는 높이를 비율로 분배 */
   #graph .graph-shell {
     grid-template-columns:1fr !important;
-    grid-template-rows:1fr minmax(110px, 38%) !important;
+    grid-template-rows:minmax(0,1fr) minmax(150px, 55%) !important;
   }
   #graph #gnet { height:auto !important; min-height:0; }
   #graph #gpanel { max-height:none !important; padding:14px !important; }

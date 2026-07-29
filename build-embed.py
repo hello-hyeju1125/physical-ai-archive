@@ -44,7 +44,7 @@ html, body { margin:0; padding:0; height:100%; overflow:hidden; background:#0713
   /* 그래프 위 / 정보 패널 아래로 나누고, 남는 높이를 비율로 분배 */
   #graph .graph-shell {
     grid-template-columns:1fr !important;
-    grid-template-rows:1fr minmax(110px, 38%) !important;
+    grid-template-rows:minmax(0,1fr) minmax(150px, 55%) !important;
   }
   #graph #gnet { height:auto !important; min-height:0; }
   #graph #gpanel { max-height:none !important; padding:14px !important; }
