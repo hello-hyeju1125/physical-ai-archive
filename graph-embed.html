@@ -1228,10 +1228,19 @@ function showMapToast(msg){
   clearTimeout(mapToastTimer);
   mapToastTimer = setTimeout(()=> mapToast.classList.remove("show"), 2000);
 }
+/* 노션 페이지 URL 정규화.
+   내부 데이터는 https://app.notion.com/<id> 형태로 저장돼 있는데,
+   이 형태는 404가 난다. 실제로 열리는 형태는 .../p/<id> 이므로 열 때만 변환한다. */
+function notionUrl(u){
+  if(!u) return u;
+  return u.replace(/^(https?:\/\/(?:app\.notion\.com|www\.notion\.so))\/(?!p\/)([0-9a-f]{32}|[0-9a-f-]{36})/i, "$1/p/$2");
+}
+window.notionUrl = notionUrl;
+
 document.querySelectorAll(".m-item").forEach(el=>{
   el.addEventListener("click", ()=>{
     const url = el.dataset.notion;
-    if(url) window.open(url, "_blank", "noopener");
+    if(url) window.open(notionUrl(url), "_blank", "noopener");
     else showMapToast("이 항목의 노션 페이지는 준비 중입니다");
   });
 });
@@ -1517,7 +1526,7 @@ function showNode(id){
       <span class="cat-chip" style="background:${CAT_COLOR[e.cat]}">${CAT_LABEL[e.cat]}</span>
       <div class="sub">연결된 자료 ${mats.length}개${mats.length ? " — 제목을 누르면 노션 페이지가 열립니다" : ""}</div>
       ${mats.length ? `<div class="k">연결된 자료</div>
-      <div class="chiprow">${mats.map(m=>`<button class="chip go" onclick="window.open('${m.url}','_blank','noopener')" title="${esc(m.name)}">${esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`).join("")}</div>` : ""}`;
+      <div class="chiprow">${mats.map(m=>`<button class="chip go" onclick="window.open(notionUrl('${m.url}'),'_blank','noopener')" title="${esc(m.name)}">${esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`).join("")}</div>` : ""}`;
     return;
   }
   const m = materialByUrl[id];
@@ -1554,7 +1563,7 @@ network.on("click", params=>{
 });
 network.on("doubleClick", params=>{
   const id = params.nodes[0];
-  if(id) window.open(id, "_blank", "noopener");
+  if(id) window.open(notionUrl(id), "_blank", "noopener");
 });
 
 /* ---------- 태그 렌즈 (칩 바) ---------- */
@@ -1590,7 +1599,7 @@ window.gTagLens = tag => {
     <h4>#${esc(tag)}</h4>
     <div class="sub">이 태그가 달린 자료 ${mats.length}개 — 제목을 누르면 해당 노드로 이동합니다</div>
     <div class="chiprow">${mats.map(u=>{ const m = materialByUrl[u];
-      return `<button class="chip go" onclick="window.open('${u}','_blank','noopener')" title="${esc(m.name)}">${esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`; }).join("")}</div>`;
+      return `<button class="chip go" onclick="window.open(notionUrl('${u}'),'_blank','noopener')" title="${esc(m.name)}">${esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`; }).join("")}</div>`;
 };
 renderTagBar();
 
