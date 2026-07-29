@@ -550,14 +550,16 @@
     .graph-shell{grid-template-columns:1fr; grid-template-rows:300px auto; height:auto;}
     #gnet{height:300px;}
     #gpanel{border-left:none; border-top:1px solid var(--panel-border); max-height:360px;}
-    /* 좁은 화면: 태그는 한 줄 가로 스크롤, 범례는 숨김 */
+    /* 좁은 화면: 태그는 3줄로 쌓아 가로 스크롤, 범례는 바로 아래 표시 */
     #gpanel > .gtags{
-      flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; max-height:none;
+      display:grid; grid-auto-flow:column; grid-template-rows:repeat(3, auto);
+      justify-content:start; align-items:center; gap:6px 8px;
+      overflow-x:auto; overflow-y:hidden; max-height:none;
       padding:10px 14px; scrollbar-width:none;
     }
     #gpanel > .gtags::-webkit-scrollbar{display:none;}
-    #gpanel .gtag{flex:none;}
-    #gpanel > .glegend{display:none;}
+    #gpanel .gtag{flex:none; width:max-content;}
+    #gpanel > .glegend{padding:9px 14px; font-size:11px; gap:5px 12px;}
     #gpBody{padding:14px;}
   }
 
