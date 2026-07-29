@@ -1628,12 +1628,100 @@ renderTagBar();
 /* ---------- 검색 (제목 + 엔티티 + 태그) ---------- */
 const gq = document.getElementById("gq");
 const gCount = document.getElementById("gCount");
+
+/* 같은 대상을 가리키는 표기 묶음. 어느 쪽으로 쳐도 나머지가 함께 검색된다.
+   (자료 제목은 한글, 엔티티 이름은 영문인 경우가 많아 양방향이 필요하다) */
+const ALIAS_GROUPS = [
+  ["figure ai","피겨ai","피규어ai","피겨","피규어","피겨에이아이"],
+  ["nvidia","엔비디아","앤비디아"],
+  ["tesla","테슬라","옵티머스","optimus"],
+  ["waymo","웨이모"],
+  ["google","구글","딥마인드","deepmind"],
+  ["boston dynamics","보스턴다이내믹스","보스턴다이나믹스","보스톤다이나믹스","아틀라스","atlas"],
+  ["unitree","유니트리"],
+  ["xiaomi","샤오미"],
+  ["byd","비야디"],
+  ["agibot","애지봇","에이지봇","즈위안"],
+  ["skild ai","스킬드","skild"],
+  ["physical intelligence","피지컬인텔리전스"],
+  ["apptronik","앱트로닉","아폴로","apollo"],
+  ["ubtech","유비테크"],
+  ["agility","어질리티","디짓","digit"],
+  ["cns","엘지씨엔에스","씨엔에스","피지컬웍스"],
+  ["ai연구원","엑사원","exaone"],
+  ["전자","엘지전자","클로이드","cloid"],
+  ["에너지솔루션","엔솔","엘지엔솔"],
+  ["이노텍","엘지이노텍"],
+  ["디스플레이","엘지디스플레이"],
+  ["화학","엘지화학"],
+  ["유플러스","엘지유플러스","익시오"]
+];
+
+/* 공백·중점·괄호 등을 없애 표기 흔들림을 흡수 */
+const sNorm = s => String(s).toLowerCase().replace(/[\s·\-_.,()·[\]/]/g, "");
+
+/* 두 문자열의 편집거리 기반 유사도(0~1). 짧은 오타를 잡기 위한 용도 */
+function simRatio(a, b){
+  if(a === b) return 1;
+  const m = a.length, n = b.length;
+  if(!m || !n) return 0;
+  let prev = Array.from({length:n+1}, (_,j)=>j), cur = new Array(n+1);
+  for(let i=1;i<=m;i++){
+    cur[0] = i;
+    for(let j=1;j<=n;j++){
+      cur[j] = Math.min(prev[j]+1, cur[j-1]+1, prev[j-1] + (a[i-1]===b[j-1]?0:1));
+    }
+    [prev, cur] = [cur, prev];
+  }
+  return 1 - prev[n] / Math.max(m, n);
+}
+
+const NORM_GROUPS = ALIAS_GROUPS.map(g=> g.map(sNorm));
+
+/* 검색어를 같은 뜻의 표기들로 넓힌다. '피겨AI' → figure ai / 피규어ai … */
+function expandQuery(nq){
+  const out = new Set([nq]);
+  NORM_GROUPS.forEach(g=>{
+    if(g.some(a=> a === nq || (nq.length >= 2 && (a.includes(nq) || nq.includes(a))))){
+      g.forEach(a=> out.add(a));
+    }
+  });
+  return [...out];
+}
+
+/* 노드 하나에 대한 검색 대상 문자열 묶음 */
+function haystack(name, extra){
+  const out = [sNorm(name)];
+  (extra || []).forEach(t=> out.push(sNorm(t)));
+  return out;
+}
+
+function hitOne(nq, hs){
+  if(hs.some(h=> h && (h.includes(nq) || (nq.length >= 3 && nq.includes(h))))) return true;
+  if(nq.length < 3) return false;
+  return hs.some(h=>{
+    if(!h) return false;
+    if(simRatio(nq, h) >= 0.62) return true;              // 이름 전체와 비슷
+    const win = Math.min(h.length, nq.length);
+    for(let i=0; i + win <= h.length; i++){                // 이름 일부와 비슷
+      if(simRatio(nq, h.slice(i, i+win)) >= 0.72) return true;
+    }
+    return false;
+  });
+}
+
+/* 별칭으로 넓힌 검색어 중 하나라도 걸리면 일치 */
+function matches(nq, hs){
+  return expandQuery(nq).some(v=> hitOne(v, hs));
+}
+
 function graphSearch(){
-  const q = gq.value.trim().toLowerCase();
+  const raw = gq.value.trim();
+  const nq = sNorm(raw);
   activeTag = null; renderTagBar();
-  if(!q){ gCount.textContent=""; clearHighlight(); network.unselectAll(); gpanel.innerHTML = EMPTY_PANEL; return; }
-  const entityHits = ENTITIES.filter(e=> e.name.toLowerCase().includes(q)).map(e=>e.url);
-  const matHits = MATERIALS.filter(m=> m.name.toLowerCase().includes(q) || (m.tags||[]).some(t=> t.toLowerCase().includes(q))).map(m=>m.url);
+  if(!nq){ gCount.textContent=""; clearHighlight(); network.unselectAll(); gpanel.innerHTML = EMPTY_PANEL; return; }
+  const entityHits = ENTITIES.filter(e=> matches(nq, haystack(e.name))).map(e=>e.url);
+  const matHits = MATERIALS.filter(m=> matches(nq, haystack(m.name, m.tags))).map(m=>m.url);
   const hits = [...entityHits, ...matHits];
   if(!hits.length){ gCount.textContent = "일치 없음"; return; }
   gCount.textContent = hits.length + "개 일치";
