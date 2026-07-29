@@ -462,7 +462,7 @@
   }
   .graph-shell{
     position:relative; margin-top:26px;
-    display:grid; grid-template-columns:1fr 330px; grid-template-rows:minmax(0,1fr);
+    display:grid; grid-template-columns:minmax(0,1fr) 460px; grid-template-rows:minmax(0,1fr);
     height:620px;
     background:var(--panel); border:1px solid var(--panel-border);
     border-radius:20px; overflow:hidden;
@@ -494,12 +494,16 @@
     padding:5px 11px; cursor:pointer; font-family:inherit; text-align:left; line-height:1.4;
   }
   #gpanel .chip:hover{color:var(--violet); border-color:var(--violet);}
-  #gpanel .notion-btn{
-    display:inline-flex; align-items:center; gap:6px; margin-top:18px;
-    background:var(--violet); color:#fff; font-size:13px; font-weight:700;
-    border-radius:9px; padding:10px 16px; border:none; cursor:pointer; font-family:inherit;
+  /* 노션 페이지로 바로 이동하는 자료 칩 */
+  #gpanel .chip.go{
+    display:inline-flex; align-items:center; gap:6px;
+    border-radius:10px; padding:8px 12px; max-width:100%;
   }
-  #gpanel .notion-btn:hover{background:#55A07A;}
+  #gpanel .chip.go::after{content:"↗"; font-size:11px; color:var(--text-faint); flex:none;}
+  #gpanel .chip.go:hover{
+    background:var(--accent-soft); border-color:var(--violet); color:var(--violet);
+  }
+  #gpanel .chip.go:hover::after{color:var(--violet);}
   .glegend{display:flex; gap:18px; justify-content:center; margin-top:18px; font-size:12.5px; color:var(--text-dim); flex-wrap:wrap;}
   .glegend span{display:inline-flex; align-items:center; gap:6px;}
   .glegend i{width:9px; height:9px; border-radius:50%; display:inline-block; flex:none;}
@@ -1340,7 +1344,21 @@ const MATERIALS = [
   {url:"https://app.notion.com/3abeef5aeac181f09589c5937204571d", name:"모건스탠리 \"2050년 휴머노이드 시장 5조 달러 — 10억 대 가동\"", entities:["https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/382eef5aeac180758254e3ac9b49ed22", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"], imp:true, tags:["휴머노이드", "투자·펀딩", "비용·수익성"]},
   {url:"https://app.notion.com/3abeef5aeac181cd972fea6958f41da3", name:"K-휴머노이드 연합 출범 — 2030년까지 1조 원 투자, 로봇 AI 파운데이션 모델 개발", entities:["https://app.notion.com/382eef5aeac1811abf90d96575c6d392", "https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/3abeef5aeac181ef82c8d5512171ed16", "https://app.notion.com/388eef5aeac18089b259fcbbbb618f9d", "https://app.notion.com/388eef5aeac180929d49ff9cd677b583"], imp:true, tags:["정부정책", "파운데이션모델"]},
   {url:"https://app.notion.com/3abeef5aeac181e9a958e4b210d8f316", name:"골드만삭스 \"2035년 글로벌 휴머노이드 시장 380억 달러\"", entities:["https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/388eef5aeac180ef9e21fc377b2ef276"], imp:false, tags:["휴머노이드", "비용·수익성"]},
-  {url:"https://app.notion.com/3abeef5aeac181f1aff4f3e506f6a795", name:"정부, 2030년 로봇 100만 대 보급·부품 국산화 80% 목표 — 제4차 지능형로봇 기본계획", entities:["https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/382eef5aeac1802ca211c421b7eeec09", "https://app.notion.com/3abeef5aeac181ef82c8d5512171ed16", "https://app.notion.com/388eef5aeac180929d49ff9cd677b583"], imp:false, tags:["정부정책"]}
+  {url:"https://app.notion.com/3abeef5aeac181f1aff4f3e506f6a795", name:"정부, 2030년 로봇 100만 대 보급·부품 국산화 80% 목표 — 제4차 지능형로봇 기본계획", entities:["https://app.notion.com/382eef5aeac181dba445e0a521861263", "https://app.notion.com/382eef5aeac1802ca211c421b7eeec09", "https://app.notion.com/3abeef5aeac181ef82c8d5512171ed16", "https://app.notion.com/388eef5aeac180929d49ff9cd677b583"], imp:false, tags:["정부정책"]},
+  {url:"https://app.notion.com/3aceef5aeac18162a6cfed7237b27fea", name:"엔비디아도 원전으로 — AI 전력난에 커지는 SMR 기대감", entities:["https://app.notion.com/390eef5aeac18025b1bbf808e6d9e09c"], imp:false, tags:["정부정책"]},
+  {url:"https://app.notion.com/3aceef5aeac181cc8fc0c47037a1ff43", name:"56억 달러 AI 냉각 시장 — 서버 국산화율 3.3%에 갇힌 한국", entities:["https://app.notion.com/390eef5aeac18025b1bbf808e6d9e09c"], imp:false, tags:["비용·수익성"]},
+  {url:"https://app.notion.com/3aceef5aeac18132bb2acf79391f8cc2", name:"AI 데이터센터 전력난, 선박 엔진 시장 열었다 — 4행정 중속엔진 수혜", entities:["https://app.notion.com/390eef5aeac18025b1bbf808e6d9e09c", "https://app.notion.com/382eef5aeac181168c73da22005bb2c9"], imp:false, tags:["비용·수익성"]},
+  {url:"https://app.notion.com/3aceef5aeac1818da6abf44d0e14509f", name:"AI용 전력원으로 급부상하는 원자력 — 데이터센터와 SMR의 공조", entities:["https://app.notion.com/390eef5aeac18025b1bbf808e6d9e09c"], imp:false, tags:["비용·수익성"]},
+  {url:"https://app.notion.com/3aceef5aeac1812d9e45e9610b1f117f", name:"정부, 부산항 신항 '피지컬 AI 항만' 선도모델 구축", entities:["https://app.notion.com/382eef5aeac181168c73da22005bb2c9"], imp:false, tags:["정부정책", "상용화·양산"]},
+  {url:"https://app.notion.com/3aceef5aeac18158a761f7ef44b32aa7", name:"HD현대 아비커스, 세계 최초 '범용 자율운항 시스템' DNV 형식승인", entities:["https://app.notion.com/382eef5aeac181168c73da22005bb2c9"], imp:false, tags:["자율주행", "표준·생태계"]},
+  {url:"https://app.notion.com/3aceef5aeac181e98c86c8bd3f15db92", name:"부산항, 365일 중단 없는 완전 자동화 터미널 현장", entities:["https://app.notion.com/382eef5aeac181168c73da22005bb2c9"], imp:false, tags:["상용화·양산"]},
+  {url:"https://app.notion.com/3aceef5aeac181059de5e698998d342c", name:"LG-베어로보틱스, 서빙 넘어 청소·조리로봇 공략", entities:["https://app.notion.com/382eef5aeac180758254e3ac9b49ed22", "https://app.notion.com/382eef5aeac181b5823cde6167b38c34"], imp:false, tags:["상용화·양산"]},
+  {url:"https://app.notion.com/3aceef5aeac1816f8b95f974624bf895", name:"베어로보틱스, 소형 서비스 로봇 '서비 큐' 공개", entities:["https://app.notion.com/382eef5aeac180758254e3ac9b49ed22"], imp:false, tags:["상용화·양산"]},
+  {url:"https://app.notion.com/3aceef5aeac181d7b155e15218ba7838", name:"조리 넘어 '풀 자동화'로 — 한국 푸드테크의 부상", entities:["https://app.notion.com/382eef5aeac180758254e3ac9b49ed22"], imp:false, tags:["상용화·양산"]},
+  {url:"https://app.notion.com/3aceef5aeac181eca0e6ce575aeaa869", name:"유일로보틱스, 푸드테크 로봇 사업 전방위 확장", entities:["https://app.notion.com/382eef5aeac180758254e3ac9b49ed22"], imp:false, tags:["상용화·양산"]},
+  {url:"https://app.notion.com/3aceef5aeac181268d57f76e9f65771a", name:"엔닷라이트, 한전과 전력설비 피지컬 AI 실증 착수", entities:["https://app.notion.com/382eef5aeac1813ba0bfdb105201238d"], imp:false, tags:["시뮬레이션·디지털트윈"]},
+  {url:"https://app.notion.com/3aceef5aeac181a7abf5f57582b18b37", name:"한전, AI로 변전설비 관리 전환 — 10년간 2594억 투입", entities:["https://app.notion.com/382eef5aeac1813ba0bfdb105201238d"], imp:false, tags:["데이터·학습"]},
+  {url:"https://app.notion.com/3aceef5aeac181b4a724ea72850a43be", name:"정부, AI 전력 인프라 확대 — ESS 시장 성장 본격화", entities:["https://app.notion.com/382eef5aeac1813ba0bfdb105201238d"], imp:false, tags:["정부정책"]}
 ];
 
 /* ---------- vis-network 지식 그래프 ---------- */
@@ -1454,9 +1472,6 @@ function highlight(nodeId){
 const gpanel = document.getElementById("gpanel");
 const EMPTY_PANEL = '<div class="empty">노드를 클릭하면<br/>정보가 나타납니다.</div>';
 
-function notionBtn(url){
-  return `<button class="notion-btn" onclick="window.open('${url}','_blank','noopener')">노션에서 열기 →</button>`;
-}
 
 function showNode(id){
   highlight(id);
@@ -1466,10 +1481,9 @@ function showNode(id){
     gpanel.innerHTML = `
       <h4>${esc(e.name)}</h4>
       <span class="cat-chip" style="background:${CAT_COLOR[e.cat]}">${CAT_LABEL[e.cat]}</span>
-      <div class="sub">연결된 자료 ${mats.length}개${mats.length ? " — 제목을 누르면 해당 노드로 이동합니다" : ""}</div>
+      <div class="sub">연결된 자료 ${mats.length}개${mats.length ? " — 제목을 누르면 노션 페이지가 열립니다" : ""}</div>
       ${mats.length ? `<div class="k">연결된 자료</div>
-      <div class="chiprow">${mats.map(m=>`<button class="chip" onclick="gFocusNode('${m.url}')">${esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`).join("")}</div>` : ""}
-      ${notionBtn(e.url)}`;
+      <div class="chiprow">${mats.map(m=>`<button class="chip go" onclick="window.open('${m.url}','_blank','noopener')" title="${esc(m.name)}">${esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`).join("")}</div>` : ""}`;
     return;
   }
   const m = materialByUrl[id];
@@ -1481,8 +1495,7 @@ function showNode(id){
       ${ents2.length ? `<div class="k">분야 · 아젠다</div>
       <div class="chiprow">${ents2.map(e2=>`<button class="chip" onclick="gFocusNode('${e2.url}')">${esc(e2.name)}</button>`).join("")}</div>` : ""}
       ${m.tags && m.tags.length ? `<div class="k">태그</div>
-      <div class="chiprow">${m.tags.map(t=>`<button class="chip" onclick="gTagLens('${t}')">#${esc(t)}</button>`).join("")}</div>` : ""}
-      ${notionBtn(m.url)}`;
+      <div class="chiprow">${m.tags.map(t=>`<button class="chip" onclick="gTagLens('${t}')">#${esc(t)}</button>`).join("")}</div>` : ""}`;
   }
 }
 
@@ -1543,7 +1556,7 @@ window.gTagLens = tag => {
     <h4>#${esc(tag)}</h4>
     <div class="sub">이 태그가 달린 자료 ${mats.length}개 — 제목을 누르면 해당 노드로 이동합니다</div>
     <div class="chiprow">${mats.map(u=>{ const m = materialByUrl[u];
-      return `<button class="chip" onclick="gFocusNode('${u}')">${esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`; }).join("")}</div>`;
+      return `<button class="chip go" onclick="window.open('${u}','_blank','noopener')" title="${esc(m.name)}">${esc(m.name.length>26?m.name.slice(0,25)+"…":m.name)}</button>`; }).join("")}</div>`;
 };
 renderTagBar();
 
