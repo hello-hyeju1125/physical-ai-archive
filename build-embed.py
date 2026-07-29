@@ -22,11 +22,9 @@ html, body { margin:0; padding:0; height:100%; overflow:hidden; background:#0713
 /* 섹션 라벨/제목/설명은 임베드에서 불필요 */
 #graph .sec-label, #graph .sec-title, #graph .sec-desc { display:none !important; }
 
-/* 검색은 가운데 크게 유지하되 위아래 여백만 압축 */
-#graph .gsearchbar { margin:4px auto 6px !important; flex:none; }
+/* 검색은 가운데 크게 유지하되 위아래 여백만 압축 (태그·범례는 패널 안에 있음) */
+#graph .gsearchbar { margin:4px auto 8px !important; flex:none; }
 #graph .gcount { margin-top:6px !important; flex:none; }
-#graph .gtags { margin:8px 0 10px !important; flex:none; }
-#graph .glegend { margin-top:10px !important; flex:none; }
 
 /* 그래프 캔버스가 남는 높이를 모두 차지 */
 #graph .graph-shell { flex:1 1 auto; min-height:0; height:auto !important; }
@@ -40,17 +38,8 @@ html, body { margin:0; padding:0; height:100%; overflow:hidden; background:#0713
   #graph .gsearchbar input { padding:11px 14px !important; font-size:14px !important; border-radius:11px; }
   #graph .gsearchbar .btn { padding:11px 15px !important; font-size:13px !important; border-radius:11px; }
 
-  /* 태그: 여러 줄로 쌓이지 않게 한 줄 가로 스크롤 */
-  #graph .gtags {
-    flex-wrap:nowrap !important; overflow-x:auto; justify-content:flex-start;
-    margin:0 0 6px !important; padding-bottom:2px;
-    scrollbar-width:none; -webkit-overflow-scrolling:touch;
-  }
-  #graph .gtags::-webkit-scrollbar { display:none; }
-  #graph .gtag { flex:none; }
-
-  /* 개수 표시와 범례는 공간을 많이 먹어 숨김 */
-  #graph .gcount, #graph .glegend { display:none !important; }
+  /* 개수 표시는 공간을 많이 먹어 숨김 (태그·범례는 패널 규칙이 처리) */
+  #graph .gcount { display:none !important; }
 
   /* 그래프 위 / 정보 패널 아래로 나누고, 남는 높이를 비율로 분배 */
   #graph .graph-shell {

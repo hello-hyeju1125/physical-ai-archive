@@ -213,7 +213,7 @@
   #graph .sec-title{color:#FFFFFF;}
   #graph .sec-desc{color:rgba(255,255,255,0.78);}
   #graph .gcount{color:rgba(255,255,255,0.72);}
-  #graph .glegend{color:rgba(255,255,255,0.85);}
+  #graph #gpanel .glegend{color:var(--text-dim);}
   #graph .gsearchbar input{border-color:rgba(255,255,255,0.3);}
   #graph .graph-shell{
     border-color:rgba(255,255,255,0.18);
@@ -478,7 +478,23 @@
   }
   .gbtn:hover{color:var(--violet); border-color:var(--violet);}
   .gbtn.wide{width:auto; padding:0 12px; font-size:12px;}
-  #gpanel{border-left:1px solid var(--panel-border); overflow-y:auto; padding:22px; background:var(--panel);}
+  /* 패널 = 태그(고정) + 노드 정보(스크롤) + 범례(고정) */
+  #gpanel{
+    border-left:1px solid var(--panel-border); background:var(--panel);
+    display:flex; flex-direction:column; min-height:0; overflow:hidden;
+  }
+  #gpanel > .gtags{
+    flex:none; margin:0 !important; padding:16px 20px 12px;
+    border-bottom:1px solid var(--panel-border);
+    justify-content:flex-start; max-height:112px; overflow-y:auto;
+  }
+  #gpBody{flex:1 1 auto; min-height:0; overflow-y:auto; padding:18px 20px;}
+  #gpanel > .glegend{
+    flex:none; margin:0 !important; padding:11px 20px;
+    border-top:1px solid var(--panel-border); background:var(--panel2);
+    justify-content:flex-start; gap:6px 14px; font-size:11.5px;
+  }
+  #gpanel > .glegend i{width:7px; height:7px;}
   #gpanel .empty{color:var(--text-faint); font-size:13.5px; line-height:1.7; margin-top:44px; text-align:center;}
   #gpanel h4{font-size:17px; font-weight:800; letter-spacing:-0.2px; line-height:1.4; margin-bottom:8px;}
   #gpanel .cat-chip{
@@ -521,11 +537,28 @@
   .gtag:hover{background:rgba(255,255,255,0.2);}
   .gtag.on{background:#FFFFFF; color:#1A4531; border-color:#FFFFFF;}
   .gtag.on span{opacity:0.6;}
+  /* 패널 안(밝은 배경)으로 들어간 태그 칩 */
+  #gpanel .gtag{
+    color:var(--text-dim); background:var(--panel2);
+    border-color:var(--panel-border); padding:4px 10px; font-size:11.5px;
+  }
+  #gpanel .gtag:hover{background:var(--accent-soft); border-color:var(--violet); color:var(--violet);}
+  #gpanel .gtag.on{background:var(--violet); color:#FFFFFF; border-color:var(--violet);}
+  #gpanel .gtag.on span{opacity:0.75;}
   /* 좁은 화면에서만 위아래로 쌓기 (노션 임베드 폭에서는 좌우 분할 유지) */
   @media (max-width:640px){
     .graph-shell{grid-template-columns:1fr; grid-template-rows:440px auto; height:auto;}
     #gnet{height:440px;}
-    #gpanel{border-left:none; border-top:1px solid var(--panel-border); max-height:320px;}
+    #gpanel{border-left:none; border-top:1px solid var(--panel-border); max-height:360px;}
+    /* 좁은 화면: 태그는 한 줄 가로 스크롤, 범례는 숨김 */
+    #gpanel > .gtags{
+      flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; max-height:none;
+      padding:10px 14px; scrollbar-width:none;
+    }
+    #gpanel > .gtags::-webkit-scrollbar{display:none;}
+    #gpanel .gtag{flex:none;}
+    #gpanel > .glegend{display:none;}
+    #gpBody{padding:14px;}
   }
 
   /* ---------- News ---------- */
@@ -889,8 +922,6 @@
     </div>
     <span class="gcount" id="gCount"></span>
 
-    <div class="gtags" id="gTags"></div>
-
     <div class="graph-shell">
       <div id="gnet"></div>
       <div class="gcontrols">
@@ -898,17 +929,19 @@
         <button class="gbtn" id="gZoomOut" title="축소">－</button>
         <button class="gbtn wide" id="gFit" title="전체 보기">전체</button>
       </div>
-      <aside id="gpanel"><div class="empty">노드를 클릭하면<br/>정보가 나타납니다.</div></aside>
-    </div>
-
-    <div class="glegend">
-      <span><i style="background:var(--company)"></i>우리 회사 (LG그룹)</span>
-      <span><i style="background:var(--tech)"></i>기반 기술</span>
-      <span><i style="background:var(--industry)"></i>적용 산업</span>
-      <span><i style="background:var(--competitor)"></i>경쟁 및 파트너</span>
-      <span><i style="background:var(--government)"></i>정부/국가</span>
-      <span><i style="background:var(--agenda)"></i>AI 전방위 통합 아젠다</span>
-      <span><i class="dot-sm" style="background:var(--material)"></i>자료 (제목은 클릭·호버 시)</span>
+      <aside id="gpanel">
+        <div class="gtags" id="gTags"></div>
+        <div id="gpBody"><div class="empty">노드를 클릭하면<br/>정보가 나타납니다.</div></div>
+        <div class="glegend">
+          <span><i style="background:var(--company)"></i>우리 회사 (LG그룹)</span>
+          <span><i style="background:var(--tech)"></i>기반 기술</span>
+          <span><i style="background:var(--industry)"></i>적용 산업</span>
+          <span><i style="background:var(--competitor)"></i>경쟁 및 파트너</span>
+          <span><i style="background:var(--government)"></i>정부/국가</span>
+          <span><i style="background:var(--agenda)"></i>AI 전방위 통합 아젠다</span>
+          <span><i class="dot-sm" style="background:var(--material)"></i>자료</span>
+        </div>
+      </aside>
     </div>
   </div>
 </section>
@@ -1453,7 +1486,7 @@ function highlight(nodeId){
 }
 
 /* ---------- 정보 패널 ---------- */
-const gpanel = document.getElementById("gpanel");
+const gpanel = document.getElementById("gpBody");   // 노드 정보만 교체 (태그·범례는 패널에 고정)
 const EMPTY_PANEL = '<div class="empty">노드를 클릭하면<br/>정보가 나타납니다.</div>';
 
 
